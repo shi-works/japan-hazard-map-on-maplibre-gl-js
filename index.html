@@ -933,6 +933,21 @@
             });
             */
 
+            // スライダーでPNGタイルの不透明度を制御
+            const sliderOpactiy = document.getElementById('slider-opacity');
+            const sliderOpactiyValue = document.getElementById('slider-opacity-value');
+
+            sliderOpactiy.addEventListener('input', (e) => {
+                map.setPaintProperty(
+                    'flood_l2_shinsuishin',
+                    'raster-opacity',
+                    parseInt(e.target.value, 10) / 100
+                );
+                sliderOpactiyValue.textContent = e.target.value + '%';
+            });
+
+            map.showTileBoundaries = false;
+
             // 指定緊急避難場所データベクトルタイル（PMTiles）
             map.addSource("pmtiles", {
                 type: "vector",
@@ -965,21 +980,6 @@
                 }
             });
 
-            // スライダーでPNGタイルの不透明度を制御
-            const sliderOpactiy = document.getElementById('slider-opacity');
-            const sliderOpactiyValue = document.getElementById('slider-opacity-value');
-
-            sliderOpactiy.addEventListener('input', (e) => {
-                map.setPaintProperty(
-                    'flood_l2_shinsuishin',
-                    'raster-opacity',
-                    parseInt(e.target.value, 10) / 100
-                );
-                sliderOpactiyValue.textContent = e.target.value + '%';
-            });
-
-            map.showTileBoundaries = false;
-
         })
 
         function SelectMap() {
@@ -1008,6 +1008,38 @@
                     minzoom: 0,
                     maxzoom: 23
                 })
+
+                // 一旦、レイヤ削除
+                map.removeLayer("hinanbasho-1")
+                map.removeLayer("hinanbasho-2")
+
+                // レイヤ追加
+
+                // 避難場所ポイントレイヤ
+                map.addLayer({
+                    "id": "hinanbasho-1",
+                    "source": "pmtiles",
+                    "source-layer": "hinanbasho",
+                    "type": "circle",
+                    'paint': {
+                        'circle-color': 'rgba(203, 0, 0, 1)',
+                        'circle-blur': 1,
+                        'circle-radius': 12
+                    }
+                });
+
+                // 避難場所ポイントレイヤ
+                map.addLayer({
+                    "id": "hinanbasho-2",
+                    "source": "pmtiles",
+                    "source-layer": "hinanbasho",
+                    "type": "circle",
+                    'paint': {
+                        'circle-color': 'rgba(255, 0, 0, 1)',
+                        'circle-radius': 5
+                    }
+                });
+
             }
             else {
                 map.addLayer({
@@ -1016,6 +1048,37 @@
                     'source': BaseMapName,
                     'minzoom': 0,
                     'maxzoom': 23,
+                });
+
+                // 一旦、レイヤ削除
+                map.removeLayer("hinanbasho-1")
+                map.removeLayer("hinanbasho-2")
+
+                // レイヤ追加
+
+                // 避難場所ポイントレイヤ
+                map.addLayer({
+                    "id": "hinanbasho-1",
+                    "source": "pmtiles",
+                    "source-layer": "hinanbasho",
+                    "type": "circle",
+                    'paint': {
+                        'circle-color': 'rgba(203, 0, 0, 1)',
+                        'circle-blur': 1,
+                        'circle-radius': 12
+                    }
+                });
+
+                // 避難場所ポイントレイヤ
+                map.addLayer({
+                    "id": "hinanbasho-2",
+                    "source": "pmtiles",
+                    "source-layer": "hinanbasho",
+                    "type": "circle",
+                    'paint': {
+                        'circle-color': 'rgba(255, 0, 0, 1)',
+                        'circle-radius': 5
+                    }
                 });
             };
 
@@ -1059,7 +1122,6 @@
                 );
                 sliderOpactiyValue.textContent = e.target.value + '%';
             });
-
         };
 
         /*
