@@ -161,9 +161,10 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             width: fit-content;
+            /*width: 150px;*/
             position: absolute;
-            /*bottom: 0;*/
-            top: 70px;
+            /*bottom: 120px;*/
+            top: 5px;
             z-index: 10;
         }
 
@@ -420,33 +421,7 @@
             attributionControl: false
         })
 
-        // ズーム・回転
-        map.addControl(new maplibregl.NavigationControl());
-
-        // フルスクリーンモードのオンオフ
-        map.addControl(new maplibregl.FullscreenControl());
-
-        // 現在位置表示
-        map.addControl(new maplibregl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: false
-            },
-            fitBoundsOptions: { maxZoom: 18 },
-            trackUserLocation: true,
-            showUserLocation: true
-        }));
-
-        // スケール表示
-        map.addControl(new maplibregl.ScaleControl({
-            maxWidth: 200,
-            unit: 'metric'
-        }));
-
-        // Attributionを折りたたみ表示
-        map.addControl(new maplibregl.AttributionControl({
-            compact: true
-        }));
-
+        /*
         // ジオコーダー追加
         var geocoder_api = {
             forwardGeocode: async (config) => {
@@ -492,7 +467,35 @@
         map.addControl(
             new MaplibreGeocoder(geocoder_api, {
                 maplibregl: maplibregl
-            }), 'top-left');
+            }), 'top-right');
+        */
+
+        // ズーム・回転
+        map.addControl(new maplibregl.NavigationControl());
+
+        // フルスクリーンモードのオンオフ
+        map.addControl(new maplibregl.FullscreenControl());
+
+        // 現在位置表示
+        map.addControl(new maplibregl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: false
+            },
+            fitBoundsOptions: { maxZoom: 18 },
+            trackUserLocation: true,
+            showUserLocation: true
+        }));
+
+        // スケール表示
+        map.addControl(new maplibregl.ScaleControl({
+            maxWidth: 200,
+            unit: 'metric'
+        }));
+
+        // Attributionを折りたたみ表示
+        map.addControl(new maplibregl.AttributionControl({
+            compact: true
+        }));
 
         // maplibre-gl-export
         map.addControl(new MaplibreExportControl({
