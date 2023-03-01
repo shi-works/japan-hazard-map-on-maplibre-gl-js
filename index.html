@@ -65,9 +65,10 @@
             background: rgba(255, 255, 255, 0.8);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
             border-radius: 5px;
-            width: 280px;
-            height: 300px;
-            overflow: scroll;
+            width: 200px;
+            /*height: 300px;*/
+            height: auto;
+            /*overflow: scroll;*/
         }
 
         th,
@@ -171,11 +172,36 @@
         #basemaps {
             font: 12px/14px Arial, Helvetica, sans-serif;
         }
+
+        .info {
+            position: absolute;
+            font: 12px/14px Arial, Helvetica, sans-serif;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            top: 10px;
+            left: 50px;
+            padding: 4px;
+            width: 280px;
+            height: 30px;
+            background: white;
+            display: none;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <div id="map"></div>
+    <div class="info">
+        <div class="close-button">x</div>
+    </div>
     <!--
     <div id="radio">
         <label>ハザードマップの種類</label><br>
@@ -247,7 +273,7 @@
     </div>
     -->
     <div id="legend-flood_l2_shinsuishin" style="display:block;" class='legend'>
-        <h4>洪水浸水想定区域<br>（想定最大規模）</h4>
+        <h4>洪水浸水想定区域<br>(想定最大規模)</h4>
         <div class="square" style='background-color: rgb(220, 122, 220); display: inline-block;'>
         </div><span style="display: inline-block; margin-left: 5px;">20.0m以上</span><br>
         <div class="square" style='background-color: rgb(242, 133, 201); display: inline-block;'>
@@ -263,7 +289,7 @@
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-flood_l1_shinsuishin" style="display:none;" class='legend'>
-        <h4>洪水浸水想定区域<br>（計画規模（現在の凡例））</h4>
+        <h4>洪水浸水想定区域<br>(計画規模(現在の凡例))</h4>
         <div class="square" style='background-color: rgb(220, 122, 220); display: inline-block;'>
         </div><span style="display: inline-block; margin-left: 5px;">20.0m以上</span><br>
         <div class="square" style='background-color: rgb(242, 133, 201); display: inline-block;'>
@@ -279,7 +305,7 @@
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-flood_l2_keizoku" style="display:none;" class='legend'>
-        <h4>浸水継続時間<br>（想定最大規模）</h4>
+        <h4>浸水継続時間<br>(想定最大規模)</h4>
         <div class="square" style='background-color: rgb(160, 210, 255); display: inline-block;'>
         </div><span style="display: inline-block; margin-left: 5px;">12時間未満</span><br>
         <div class="square" style='background-color: rgb(0, 65, 255); display: inline-block;'>
@@ -297,17 +323,17 @@
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-flood_l2_kaokutoukai_hanran" style="display:none;" class='legend'>
-        <h4>家屋倒壊等氾濫想定区域<br>（氾濫流）</h4>
+        <h4>家屋倒壊等氾濫想定区域<br>(氾濫流)</h4>
         <div class="image-hanran"></div><br>
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-flood_l2_kaokutoukai_kagan" style="display:none;" class='legend'>
-        <h4>家屋倒壊等氾濫想定区域<br>（河岸侵食）</h4>
+        <h4>家屋倒壊等氾濫想定区域<br>(河岸侵食)</h4>
         <div class="image-kagan"></div><br>
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-dosekiryukeikaikuiki" style="display:none;" class='legend'>
-        <h4>土砂災害警戒区域<br>（土石流）</h4>
+        <h4>土砂災害警戒区域<br>(土石流)</h4>
         <div class="square" style='background-color: rgb(165, 0, 33); display: inline-block;'>
         </div><span style="display: inline-block; margin-left: 5px;">特別警戒区域</span><br>
         <div class="square" style='background-color: rgb(230, 200, 50); display: inline-block;'>
@@ -315,7 +341,7 @@
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-kyukeishakeikaikuiki" style="display:none;" class='legend'>
-        <h4>土砂災害警戒区域<br>（急傾斜地の崩壊）</h4>
+        <h4>土砂災害警戒区域<br>(急傾斜地の崩壊)</h4>
         <div class="square" style='background-color: rgb(250, 40, 0); display: inline-block;'>
         </div><span style="display: inline-block; margin-left: 5px;">特別警戒区域</span><br>
         <div class="square" style='background-color: rgb(250, 230, 0); display: inline-block;'>
@@ -323,7 +349,7 @@
         <div><span style='background-color: rgb(255, 0, 0)'></span>指定緊急避難場所</div>
     </div>
     <div id="legend-jisuberikeikaikuiki" style="display:none;" class='legend'>
-        <h4>土砂災害警戒区域<br>（地すべり）</h4>
+        <h4>土砂災害警戒区域<br>(地すべり)</h4>
         <div class="square" style='background-color: rgb(202, 76, 149); display: inline-block;'>
         </div><span style="display: inline-block; margin-left: 5px;">特別警戒区域</span><br>
         <div class="square" style='background-color: rgb(255, 183, 76); display: inline-block;'>
@@ -836,106 +862,6 @@
             }
             */
 
-            // PNGタイルから情報を取得
-            // 【参考1】https://gsj-seamless.jp/labs/datapng/gridpngtile.html
-            // 【参考2】https://gsj-seamless.jp/labs/datapng/sample/leaflet_shinsuishin1.html
-
-            /// ****************
-            // latLngToTile 緯度経度をタイル座標に変換する関数
-            //  latLng: 緯度経度オブジェクト（lat,lngフィールドを持ちます）
-            //  z: ズームレベル
-            //  戻り値: タイル座標オブジェクト（x, yフィールドを持ちます)
-            //    ※通常，地図ライブラリ内に同様の関数が用意されています．
-            /// ****************
-            /*
-            function latLngToTile(lat, lng , z) {
-                const
-                    w = Math.pow(2, (z === undefined) ? 0 : z) / 2,		// 世界全体のピクセル幅
-                    yrad = Math.log(Math.tan(Math.PI * (90 + lat) / 360));
- 
-                return { x: (lng / 180 + 1) * w, y: (1 - yrad / Math.PI) * w };
-            };
-            */
-
-            /// ****************
-            // getLegendItem 凡例情報，タイルURL，座標，ズームレベルを指定して凡例項目を取得する関数
-            //  legend: 凡例情報オブジェクト．r,g,b,titleを持つ凡例項目オブジェクトの配列
-            //	url: タイル画像のURLテンプレート．
-            //		ズームレベル，X, Y座標をそれぞれ{z},{x},{y}として埋め込む
-            //	ll: 緯度経度オブジェクト（lat,lngフィールドを持ちます）
-            //  z:　ズームレベル
-            //  invalid: 追加無効値を相当する数値で指定．デフォルトは指定なし
-            //  戻り値: 成功時に凡例項目オブジェクトを受け取るプロミス．該当するものがない場合はnullを受け取ります
-            /// ****************
-            /*
-            function getLegendItem(legend, url, lat, lng , z, invalid = undefined) {
-                return new Promise(function (resolve, reject) {
-                    const
-                        p = latLngToTile(lat, lng, z),
-                        x = Math.floor(p.x),			// タイルX座標
-                        y = Math.floor(p.y),			// タイルY座標
-                        i = (p.x - x) * 256,			// タイル内i座標
-                        j = (p.y - y) * 256,			// タイル内j座標
-                        img = new Image();
- 
-                    img.crossOrigin = 'anonymous';	// 画像ファイルからデータを取り出すために必要です
-                    img.onload = function () {
-                        const
-                            canvas = document.createElement('canvas'),
-                            context = canvas.getContext('2d');
-                        let
-                            v,
-                            d;
- 
-                        canvas.width = 1;
-                        canvas.height = 1;
-                        context.drawImage(img, i, j, 1, 1, 0, 0, 1, 1);
-                        d = context.getImageData(0, 0, 1, 1).data;
-                        if (d[3] !== 255) {
-                            v = null;
-                        } else {
-                            v = legend.find(o => o.r == d[0] && o.g == d[1] && o.b == d[2])
-                            console.log("RGB:" + "R:" + o.r + "G:" + o.g + "B:" + o.b)
-                        }
-                        resolve(v);
-                    }
-                    img.onerror = function () {
-                        resolve(null);
-                    }
-                    img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
-                });
-            };
-            */
-
-            // const corsApi = 'https://gsj-seamless.jp/labs/helper/cors.png?url='
-            // const chiriinAttr = 'https://maps.gsi.go.jp/development/ichiran.html'
-            // const shinsuishinTile = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin_data/{z}/{x}/{y}.png'
-            /*
-            // 凡例情報
-            const legend = [
-                { r: 247, g: 245, b: 169, title: '0.5m未満' },
-                { r: 255, g: 216, b: 192, title: '0.5～3.0m' },
-                { r: 255, g: 183, b: 183, title: '3.0～5.0m' },
-                { r: 255, g: 145, b: 145, title: '5.0～10.0m' },
-                { r: 242, g: 133, b: 201, title: '10.0～20.0m' },
-                { r: 220, g: 122, b: 220, title: '20.0m以上' }
-            ];
-            */
-            /*
-            map.on('click', function (event) {
-                const lng = event.lngLat.lng;
-                const lat = event.lngLat.lat;
-                getLegendItem(legend, shinsuishinTile, lat, lng, map.getZoom()).then(function (v) {
-                    let s = '緯度: ' + lat.toFixed(5) + ', ' + '経度: ' + lng.toFixed(4) + '<br />';
-                    info.innerHTML = s + '洪水浸水想定区域（想定最大規模）: ' + (v ? v.title : '取得できません');
-                    new maplibregl.Popup()
-                        .setLngLat(event.lngLat)
-                        .setHTML(info.innerHTML)
-                        .addTo(map);
-                });
-            });
-            */
-
             // スライダーでPNGタイルの不透明度を制御
             const sliderOpactiy = document.getElementById('slider-opacity');
             const sliderOpactiyValue = document.getElementById('slider-opacity-value');
@@ -983,11 +909,29 @@
                 }
             });
 
+            // 避難場所ポイントレイヤ（透明）
+            map.addLayer({
+                "id": "hinanbasho-3",
+                "source": "pmtiles",
+                "source-layer": "hinanbasho",
+                "type": "circle",
+                'paint': {
+                    'circle-color': 'rgba(255, 255, 255, 0)',
+                    'circle-radius': 30
+                }
+            });
+
+            // フィルタ設定
+            map.setFilter('hinanbasho-1', ['==', '洪水', '1']);
+            map.setFilter('hinanbasho-2', ['==', '洪水', '1']);
+            map.setFilter('hinanbasho-3', ['==', '洪水', '1']);
+
         })
 
         function SelectMap() {
             var BaseMapName = document.getElementById('basemaps').value;
 
+            if (map.getLayer('flood_l2_shinsuishin')) map.removeLayer('flood_l2_shinsuishin');
             if (map.getLayer('flood_l1_shinsuishin')) map.removeLayer('flood_l1_shinsuishin');
             if (map.getLayer('flood_l2_keizoku')) map.removeLayer('flood_l2_keizoku');
             if (map.getLayer('flood_l2_kaokutoukai_hanran')) map.removeLayer('flood_l2_kaokutoukai_hanran');
@@ -1002,88 +946,77 @@
             if (map.getLayer('hightide_l2_shinsuishin')) map.removeLayer('hightide_l2_shinsuishin');
             if (map.getLayer('tsunami_newlegend')) map.removeLayer('tsunami_newlegend');
 
-            // PNGタイル切り替え 
-            if (BaseMapName == "flood_l2_shinsuishin") {
-                map.addLayer({
-                    id: "flood_l2_shinsuishin",
-                    type: "raster",
-                    source: "flood_l2_shinsuishin",
-                    minzoom: 0,
-                    maxzoom: 23
-                })
+            // PNGタイル切り替え
+            map.addLayer({
+                id: BaseMapName,
+                type: "raster",
+                source: BaseMapName,
+                minzoom: 0,
+                maxzoom: 23
+            })
 
-                // 一旦、レイヤ削除
-                map.removeLayer("hinanbasho-1")
-                map.removeLayer("hinanbasho-2")
+            // 一旦、レイヤ削除
+            map.removeLayer("hinanbasho-1")
+            map.removeLayer("hinanbasho-2")
+            map.removeLayer("hinanbasho-3")
 
-                // レイヤ追加
+            // レイヤ追加
 
-                // 避難場所ポイントレイヤ
-                map.addLayer({
-                    "id": "hinanbasho-1",
-                    "source": "pmtiles",
-                    "source-layer": "hinanbasho",
-                    "type": "circle",
-                    'paint': {
-                        'circle-color': 'rgba(203, 0, 0, 1)',
-                        'circle-blur': 1,
-                        'circle-radius': 12
-                    }
-                });
+            // 避難場所ポイントレイヤ
+            map.addLayer({
+                "id": "hinanbasho-1",
+                "source": "pmtiles",
+                "source-layer": "hinanbasho",
+                "type": "circle",
+                'paint': {
+                    'circle-color': 'rgba(203, 0, 0, 1)',
+                    'circle-blur': 1,
+                    'circle-radius': 12
+                }
+            });
 
-                // 避難場所ポイントレイヤ
-                map.addLayer({
-                    "id": "hinanbasho-2",
-                    "source": "pmtiles",
-                    "source-layer": "hinanbasho",
-                    "type": "circle",
-                    'paint': {
-                        'circle-color': 'rgba(255, 0, 0, 1)',
-                        'circle-radius': 5
-                    }
-                });
+            // 避難場所ポイントレイヤ
+            map.addLayer({
+                "id": "hinanbasho-2",
+                "source": "pmtiles",
+                "source-layer": "hinanbasho",
+                "type": "circle",
+                'paint': {
+                    'circle-color': 'rgba(255, 0, 0, 1)',
+                    'circle-radius': 5
+                }
+            });
 
+            // 避難場所ポイントレイヤ（透明）
+            map.addLayer({
+                "id": "hinanbasho-3",
+                "source": "pmtiles",
+                "source-layer": "hinanbasho",
+                "type": "circle",
+                'paint': {
+                    'circle-color': 'rgba(255, 255, 255, 0)',
+                    'circle-radius': 30
+                }
+            });
+
+            // フィルタ設定
+            if (BaseMapName == 'flood_l2_shinsuishin' || BaseMapName == 'flood_l1_shinsuishin' || BaseMapName == 'flood_l2_keizoku' || BaseMapName == 'flood_l2_kaokutoukai_hanran' || BaseMapName == 'flood_l2_kaokutoukai_kagan') {
+                map.setFilter('hinanbasho-1', ['==', '洪水', '1']);
+                map.setFilter('hinanbasho-2', ['==', '洪水', '1']);
+                map.setFilter('hinanbasho-3', ['==', '洪水', '1']);
+            } else if (BaseMapName == 'dosekiryukeikaikuiki' || BaseMapName == 'kyukeishakeikaikuiki' || BaseMapName == 'jisuberikeikaikuiki' || BaseMapName == 'dosekiryukikenkeiryu' || BaseMapName == 'kyukeisyachihoukai' || BaseMapName == 'jisuberikikenkasyo' || BaseMapName == 'nadarekikenkasyo') {
+                map.setFilter('hinanbasho-1', ['==', '崖崩れ、土石流及び地滑り', '1']);
+                map.setFilter('hinanbasho-2', ['==', '崖崩れ、土石流及び地滑り', '1']);
+                map.setFilter('hinanbasho-3', ['==', '崖崩れ、土石流及び地滑り', '1']);
+            } else if (BaseMapName == 'hightide_l2_shinsuishin') {
+                map.setFilter('hinanbasho-1', ['==', '高潮', '1']);
+                map.setFilter('hinanbasho-2', ['==', '高潮', '1']);
+                map.setFilter('hinanbasho-3', ['==', '高潮', '1']);
+            } else if (BaseMapName == 'tsunami_newlegend') {
+                map.setFilter('hinanbasho-1', ['==', '津波', '1']);
+                map.setFilter('hinanbasho-2', ['==', '津波', '1']);
+                map.setFilter('hinanbasho-3', ['==', '津波', '1']);
             }
-            else {
-                map.addLayer({
-                    'id': BaseMapName,
-                    'type': 'raster',
-                    'source': BaseMapName,
-                    'minzoom': 0,
-                    'maxzoom': 23,
-                });
-
-                // 一旦、レイヤ削除
-                map.removeLayer("hinanbasho-1")
-                map.removeLayer("hinanbasho-2")
-
-                // レイヤ追加
-
-                // 避難場所ポイントレイヤ
-                map.addLayer({
-                    "id": "hinanbasho-1",
-                    "source": "pmtiles",
-                    "source-layer": "hinanbasho",
-                    "type": "circle",
-                    'paint': {
-                        'circle-color': 'rgba(203, 0, 0, 1)',
-                        'circle-blur': 1,
-                        'circle-radius': 12
-                    }
-                });
-
-                // 避難場所ポイントレイヤ
-                map.addLayer({
-                    "id": "hinanbasho-2",
-                    "source": "pmtiles",
-                    "source-layer": "hinanbasho",
-                    "type": "circle",
-                    'paint': {
-                        'circle-color': 'rgba(255, 0, 0, 1)',
-                        'circle-radius': 5
-                    }
-                });
-            };
 
             // 凡例の表示切り替え
             var layerIds = ["flood_l2_shinsuishin", "flood_l1_shinsuishin", "flood_l2_keizoku", "flood_l2_kaokutoukai_hanran", "flood_l2_kaokutoukai_kagan",
@@ -1091,7 +1024,7 @@
                 "hightide_l2_shinsuishin", "tsunami_newlegend"];
 
             for (var j = 0; j < layerIds.length; j++) {
-                map.setLayoutProperty(layerIds[j], 'visibility', layerIds[j] === BaseMapName ? 'visible' : 'none');
+                // map.setLayoutProperty(layerIds[j], 'visibility', layerIds[j] === BaseMapName ? 'visible' : 'none');
 
                 if (layerIds[j] === BaseMapName) {
                     // 表示
@@ -1125,6 +1058,7 @@
                 );
                 sliderOpactiyValue.textContent = e.target.value + '%';
             });
+
         };
 
         /*
@@ -1277,14 +1211,18 @@
         */
 
         // 避難場所ポップアップ表示
-        map.on('click', 'hinanbasho-1', (e) => {
+        map.on('click', 'hinanbasho-3', (e) => {
+
             var lng = e.lngLat.lng;
             var lat = e.lngLat.lat;
-
-            var shikuchosonkodo = e.features[0].properties['市町村コード'];
-            var shikuchosommei = e.features[0].properties['都道府県名及び市町村名'];
-            var shisetsumei = e.features[0].properties['施設・場所名'];
+            // var shikuchosonkodo = e.features[0].properties['市町村コード'];
+            // var shikuchosommei = e.features[0].properties['都道府県名及び市町村名'];
             var jusho = e.features[0].properties['住所'];
+            var shisetsumei = e.features[0].properties['施設・場所名'];
+            var chofuku = e.features[0].properties['指定避難所との重複'];
+            // var biko = e.features[0].properties['備考'];
+
+            /*
             var kozui = e.features[0].properties['洪水'];
             var gakekuzure = e.features[0].properties['崖崩れ、土石流及び地滑り'];
             var takashio = e.features[0].properties['高潮'];
@@ -1293,9 +1231,21 @@
             var kaji = e.features[0].properties['大規模な火事'];
             var naisuihanran = e.features[0].properties['内水氾濫'];
             var kazan = e.features[0].properties['火山現象'];
-            var chofuku = e.features[0].properties['指定避難所との重複'];
-            var biko = e.features[0].properties['備考'];
+            */
 
+            var SyubetuIds = ["洪水", "崖崩れ、土石流及び地滑り", "高潮", "津波", "大規模な火事", "内水氾濫", "火山現象"];
+            var SyubetuMei = ''
+            for (var j = 0; j < SyubetuIds.length; j++) {
+                // map.setLayoutProperty(layerIds[j], 'visibility', layerIds[j] === BaseMapName ? 'visible' : 'none');
+
+                if (e.features[0].properties[SyubetuIds[j]] === '1') {
+                    SyubetuMei += SyubetuIds[j] + "　"
+                }
+            }
+
+            // console.log(SyubetuMei)
+
+            /*
             // データ項目の定義をもとに、該当「〇」、非該当「-」を判定
             if (kozui === '1') { res_kozui = "〇"; } else { res_kozui = "-"; }
             if (gakekuzure === '1') { res_gakekuzure = "〇"; } else { res_gakekuzure = "-"; }
@@ -1305,18 +1255,23 @@
             if (kaji === '1') { res_kaji = "〇"; } else { res_kaji = "-"; }
             if (naisuihanran === '1') { res_naisuihanran = "〇"; } else { res_naisuihanran = "-"; }
             if (kazan === '1') { res_kazan = "〇"; } else { res_kazan = "-"; }
+            */
             if (chofuku === '1') { res_chofuku = "〇"; } else { res_chofuku = "-"; }
 
             new maplibregl.Popup()
                 .setLngLat(e.lngLat)
                 .setHTML(
                     // 事故内容
-                    '<b>' + '<big>' + '<font color="red">' + '指定緊急避難場所: ' + shisetsumei + '</font>' + '</big>' + '</b>' + '<br>'
+                    // '<b>' + '<big>' + '<font color="red">' + '指定緊急避難場所: ' + shisetsumei + '</font>' + '</big>' + '</b>' + '<br>'
+                    '<b>' + '<big>' + '<font color="red">' + shisetsumei + '</font>' + '</big>' + '</b>' + '<br>'
                     // + '市町村コード: ' + shikuchosonkodo + '<br>'
                     // + '都道府県名及び市町村名: ' + shikuchosommei + '<br>'
                     + '住所: ' + jusho + '<br>'
-
-
+                    + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>"
+                    + '<br><br>'
+                    + '<b>' + '<big>' + '対応している災害の種別' + '</big>' + '</b>' + '<br>' + SyubetuMei + '<br><br>'
+                    + '指定避難所との重複: ' + res_chofuku + '<br><br>'
+                    /*
                     // 表形式
                     + '<table>' +
                     '<tr>' +
@@ -1350,13 +1305,234 @@
                     '<td>' + '指定避難所との重複' + '</td> ' + '<td style="text-align:center">' + res_chofuku + '</td>' +
                     '</tr>' +
                     '<table>'
+                    */
 
-                    + '座標: ' + lat.toFixed(7) + "," + lng.toFixed(7) + ' ※クリック位置の座標<br>'
-                    + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>"
-                    + '<br>'
+                    // + '座標: ' + lat.toFixed(7) + "," + lng.toFixed(7) + ' ※クリック位置の座標<br>'
                     + '<b>' + '※最新かつ詳細の状況などは必ず当該市町村にご確認ください。' + '</b>' + '<br>'
                     + '<a href=https://www.gsi.go.jp/bousaichiri/hinanbasho.html>「指定緊急避難場所」について</a>')
                 .addTo(map);
+
+        });
+
+        // PNGタイルからRGB値を取得
+        // 【参考1】https://gsj-seamless.jp/labs/datapng/gridpngtile.html
+        // 【参考2】https://gsj-seamless.jp/labs/datapng/sample/leaflet_shinsuishin1.html
+
+        /// ****************
+        // latLngToTile 緯度経度をタイル座標に変換する関数
+        //  latLng: 緯度経度オブジェクト（lat,lngフィールドを持ちます）
+        //  z: ズームレベル
+        //  戻り値: タイル座標オブジェクト（x, yフィールドを持ちます)
+        //    ※通常，地図ライブラリ内に同様の関数が用意されています．
+        /// ****************
+
+        function latLngToTile(lat, lng, z) {
+            const
+                w = Math.pow(2, (z === undefined) ? 0 : z) / 2,		// 世界全体のピクセル幅
+                yrad = Math.log(Math.tan(Math.PI * (90 + lat) / 360));
+
+            return { x: (lng / 180 + 1) * w, y: (1 - yrad / Math.PI) * w };
+        };
+
+        /// ****************
+        // getLegendItem 凡例情報，タイルURL，座標，ズームレベルを指定して凡例項目を取得する関数
+        //  legend: 凡例情報オブジェクト．r,g,b,titleを持つ凡例項目オブジェクトの配列
+        //	url: タイル画像のURLテンプレート．
+        //		ズームレベル，X, Y座標をそれぞれ{z},{x},{y}として埋め込む
+        //	ll: 緯度経度オブジェクト（lat,lngフィールドを持ちます）
+        //  z:　ズームレベル
+        //  invalid: 追加無効値を相当する数値で指定．デフォルトは指定なし
+        //  戻り値: 成功時に凡例項目オブジェクトを受け取るプロミス．該当するものがない場合はnullを受け取ります
+        /// ****************
+
+        function getLegendItem(legend, url, lat, lng, z, invalid = undefined) {
+            return new Promise(function (resolve, reject) {
+                const
+                    p = latLngToTile(lat, lng, z),
+                    x = Math.floor(p.x),			// タイルX座標
+                    y = Math.floor(p.y),			// タイルY座標
+                    i = (p.x - x) * 256,			// タイル内i座標
+                    j = (p.y - y) * 256,			// タイル内j座標
+                    img = new Image();
+
+                img.crossOrigin = 'anonymous';	// 画像ファイルからデータを取り出すために必要です
+                img.onload = function () {
+                    const
+                        canvas = document.createElement('canvas'),
+                        context = canvas.getContext('2d');
+                    let
+                        v,
+                        d;
+
+                    canvas.width = 1;
+                    canvas.height = 1;
+                    context.drawImage(img, i, j, 1, 1, 0, 0, 1, 1);
+                    d = context.getImageData(0, 0, 1, 1).data;
+                    if (d[3] !== 255) {
+                        v = null;
+                    } else {
+                        v = legend.find(o => o.r == d[0] && o.g == d[1] && o.b == d[2])
+                        //console.log("RGB:" + "R:" + o.r + "G:" + o.g + "B:" + o.b)
+                        console.log("RGB:" + "R:" + v.r + "G:" + v.g + "B:" + v.b)
+                        console.log("凡例情報:" + v.title)
+                    }
+                    resolve(v);
+                }
+                img.onerror = function () {
+                    resolve(null);
+                }
+                img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
+                console.log("img.src:" + img.src)
+            });
+        };
+
+        // 凡例情報
+
+        // 洪水浸水想定区域（想定最大規模）、洪水浸水想定区域（計画規模（現在の凡例））
+        const legend_shinsuishin = [
+            { r: 247, g: 245, b: 169, title: '0.5m未満' },
+            { r: 255, g: 216, b: 192, title: '0.5～3.0m' },
+            { r: 255, g: 183, b: 183, title: '3.0～5.0m' },
+            { r: 255, g: 145, b: 145, title: '5.0～10.0m' },
+            { r: 242, g: 133, b: 201, title: '10.0～20.0m' },
+            { r: 220, g: 122, b: 220, title: '20.0m以上' }
+        ];
+
+        // 浸水継続時間（想定最大規模）
+        const legend_keizoku = [
+            { r: 160, g: 210, b: 255, title: '12時間未満' },
+            { r: 0, g: 65, b: 255, title: '12時間 ～ 1日未満' },
+            { r: 250, g: 245, b: 0, title: '1日 ～ 3日未満' },
+            { r: 255, g: 153, b: 0, title: '3日 ～ 1週間未満' },
+            { r: 255, g: 40, b: 0, title: '1週間 ～ 2週間未満' },
+            { r: 180, g: 0, b: 104, title: '2週間 ～ 4週間未満' },
+            { r: 96, g: 0, b: 96, title: '4週間以上' },
+        ];
+
+        // 高潮浸水想定区域、津波浸水想定
+        const legend_hightide_tsunami = [
+            { r: 255, g: 255, b: 179, title: '0.3m未満' },
+            { r: 247, g: 245, b: 169, title: '0.3～0.5m' },
+            { r: 248, g: 225, b: 166, title: '0.5～1.0m' },
+            { r: 255, g: 216, b: 192, title: '1.0～3.0m' },
+            { r: 255, g: 183, b: 183, title: '3.0～5.0m' },
+            { r: 255, g: 145, b: 145, title: '5.0～10.0m' },
+            { r: 242, g: 133, b: 201, title: '10.0～20.0m' },
+            { r: 220, g: 122, b: 188, title: '20.0m以上' }
+        ];
+
+        // const corsApi = 'https://gsj-seamless.jp/labs/helper/cors.png?url='
+        // const chiriinAttr = 'https://maps.gsi.go.jp/development/ichiran.html'
+        // const shinsuishinTile = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin_data/{z}/{x}/{y}.png'
+
+        // const closeButton = document.querySelector('.close-button');
+        // const info = document.querySelector('.info');
+
+        map.on('click', function (e) {
+
+            // 現在表示されている、ラスタレイヤのidを取得
+            var rasterLayerIds = [];
+            const mapLayers = map.getStyle().layers;
+
+            mapLayers.forEach(layer => {
+                const layerType = map.getLayer(layer.id)?.type;
+                if (layerType === 'raster') {
+                    rasterLayerIds.push(layer.id);
+                }
+            });
+
+            // console.log('ラスタレイヤ一覧: ' + rasterLayerIds);
+
+            // ラスタレイヤの一覧からseamlessphotoを削除
+            var removals = ['seamlessphoto'];
+            rasterLayerIds = rasterLayerIds.filter(function (v) {
+                return !removals.includes(v);
+            });
+            console.log('現在のラスタレイヤ: ' + rasterLayerIds);
+
+            // ラスタレイヤのidからポップアップ表示に使用するURLを生成
+            let RasterTileUrl = '';
+            let legend = [];
+            if (rasterLayerIds == 'flood_l2_shinsuishin') {
+                // 洪水浸水想定区域（想定最大規模）
+                RasterTileUrl = 'https://disaportaldata.gsi.go.jp/raster/01_' + rasterLayerIds + '/{z}/{x}/{y}.png';
+                legend = legend_shinsuishin;
+            } else if (rasterLayerIds == 'flood_l1_shinsuishin') {
+                // 洪水浸水想定区域（計画規模（現在の凡例））
+                RasterTileUrl = 'https://disaportaldata.gsi.go.jp/raster/01_' + rasterLayerIds + '_newlegend_data/{z}/{x}/{y}.png';
+                legend = legend_shinsuishin;
+            } else if (rasterLayerIds == 'flood_l2_keizoku') {
+                // 浸水継続時間（想定最大規模）
+                RasterTileUrl = 'https://disaportaldata.gsi.go.jp/raster/01_' + rasterLayerIds + '_data/{z}/{x}/{y}.png';
+                legend = legend_keizoku;
+            } else if (rasterLayerIds == 'hightide_l2_shinsuishin') {
+                // 高潮浸水想定区域
+                RasterTileUrl = 'https://disaportaldata.gsi.go.jp/raster/03_' + rasterLayerIds + '_data/{z}/{x}/{y}.png';
+                legend = legend_hightide_tsunami;
+            } else if (rasterLayerIds == 'tsunami_newlegend') {
+                // 津波浸水想定
+                RasterTileUrl = 'https://disaportaldata.gsi.go.jp/raster/04_' + rasterLayerIds + '_data/{z}/{x}/{y}.png';
+                legend = legend_hightide_tsunami;
+            }
+            console.log('現在のラスタレイヤのURL: ' + RasterTileUrl);
+
+            if (RasterTileUrl != '') {
+
+                // 現在表示されているラスタレイヤをもとにポップアップ表示
+                // クリックしたレイヤ名を取得
+                // クリックしたピクセル座標にあるすべてのフィーチャを取得する
+                var features = map.queryRenderedFeatures(e.point);
+
+                // クリックしたピクセル座標にあるレイヤ名を取得する
+                var clickedLayerNames = features.map(function (feature) {
+                    return feature.layer.id;
+                });
+
+                // クリックしたピクセル座標にあるすべてのレイヤの名前を出力する
+                // console.log('Clicked layers:', clickedLayerNames);
+
+                if (clickedLayerNames.indexOf('hinanbasho-1') === -1 && clickedLayerNames.indexOf('hinanbasho-2') === -1 && clickedLayerNames.indexOf('hinanbasho-3') === -1) {
+                    // ポップアップ表示
+                    const lng = e.lngLat.lng;
+                    const lat = e.lngLat.lat;
+                    // const info = document.createElement('div');
+                    // getLegendItem(legend, shinsuishinTile, lat, lng, Math.trunc(map.getZoom())).then(function (v) {
+                    getLegendItem(legend, RasterTileUrl, lat, lng, Math.trunc(map.getZoom())).then(function (v) {
+                        // var zoomLevel = map.getZoom();
+                        // console.log('現在のズームレベルは ' + zoomLevel + ' です。');
+                        // console.log('現在のズームレベル（整数）は ' + Math.trunc(zoomLevel) + ' です。');
+                        /*
+                        let s = '緯度: ' + lat.toFixed(5) + ', ' + '経度: ' + lng.toFixed(4) + '<br />';
+                        info.innerHTML = s + '洪水によって想定される浸水深: ' + (v ? v.title : '取得できません');
+                        // info.style.left = (e.containerPoint.x + 10) + 'px';
+                        info.style.left = (e.point.x + 10) + 'px';
+                        // info.style.top = (e.containerPoint.y + 10) + 'px';
+                        info.style.top = (e.point.y + 10) + 'px';
+                        info.style.display = 'block';
+                        // let s = '<p>' + '緯度: ' + lat.toFixed(5) + ', ' + '経度: ' + lng.toFixed(4) + '<br>' + '洪水によって想定される浸水深: ' + '<br>' + (v ? v.title : '取得できません') + '</p>';
+                        */
+                        let s = '';
+                        let res = (v ? v.title : '取得できません');
+                        if (rasterLayerIds == 'flood_l2_shinsuishin') {
+                            // let s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + (v ? v.title : '取得できません') + '</b>' + '</p>';
+                            s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                        } else if (rasterLayerIds == 'flood_l1_shinsuishin') {
+                            s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                        } else if (rasterLayerIds == 'flood_l2_keizoku') {
+                            s = '<p>' + '浸水継続時間（想定最大規模）' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                        } else if (rasterLayerIds == 'hightide_l2_shinsuishin') {
+                            s = '<p>' + '高潮によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                        } else if (rasterLayerIds == 'tsunami_newlegend') {
+                            s = '<p>' + '津波によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                        }
+                        new maplibregl.Popup()
+                            .setLngLat(e.lngLat)
+                            .setHTML(s)
+                            .addTo(map);
+                    });
+                }
+            }
+
         });
     </script>
 </body>
