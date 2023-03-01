@@ -1373,8 +1373,8 @@
                     } else {
                         v = legend.find(o => o.r == d[0] && o.g == d[1] && o.b == d[2])
                         //console.log("RGB:" + "R:" + o.r + "G:" + o.g + "B:" + o.b)
-                        console.log("RGB:" + "R:" + v.r + "G:" + v.g + "B:" + v.b)
-                        console.log("凡例情報:" + v.title)
+                        // console.log("RGB:" + "R:" + v.r + "G:" + v.g + "B:" + v.b)
+                        // console.log("凡例情報:" + v.title)
                     }
                     resolve(v);
                 }
@@ -1382,7 +1382,7 @@
                     resolve(null);
                 }
                 img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
-                console.log("img.src:" + img.src)
+                // console.log("img.src:" + img.src)
             });
         };
 
@@ -1448,7 +1448,7 @@
             rasterLayerIds = rasterLayerIds.filter(function (v) {
                 return !removals.includes(v);
             });
-            console.log('現在のラスタレイヤ: ' + rasterLayerIds);
+            // console.log('現在のラスタレイヤ: ' + rasterLayerIds);
 
             // ラスタレイヤのidからポップアップ表示に使用するURLを生成
             let RasterTileUrl = '';
@@ -1474,7 +1474,7 @@
                 RasterTileUrl = 'https://disaportaldata.gsi.go.jp/raster/04_' + rasterLayerIds + '_data/{z}/{x}/{y}.png';
                 legend = legend_hightide_tsunami;
             }
-            console.log('現在のラスタレイヤのURL: ' + RasterTileUrl);
+            // console.log('現在のラスタレイヤのURL: ' + RasterTileUrl);
 
             if (RasterTileUrl != '') {
 
