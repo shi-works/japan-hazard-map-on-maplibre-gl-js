@@ -438,10 +438,10 @@
             container: 'map',
             style: './std.json',
             // style: 'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json',
-            zoom: 15,
+            zoom: 14,
             maxZoom: 23,
             minZoom: 4,
-            center: [138.5661802, 35.6621027],
+            center: [139.48744, 35.91551],
             maplibreLogo: true,
             hash: true,
             // 既存Attributionを非表示
@@ -1516,15 +1516,15 @@
                         let res = (v ? v.title : '取得できません');
                         if (rasterLayerIds == 'flood_l2_shinsuishin') {
                             // let s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + (v ? v.title : '取得できません') + '</b>' + '</p>';
-                            s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                            s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '<br>' + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>" + '</p>';
                         } else if (rasterLayerIds == 'flood_l1_shinsuishin') {
-                            s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                            s = '<p>' + '洪水によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '<br>' + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>" + '</p>';
                         } else if (rasterLayerIds == 'flood_l2_keizoku') {
-                            s = '<p>' + '浸水継続時間（想定最大規模）' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                            s = '<p>' + '浸水継続時間（想定最大規模）' + '<br>' + '<b>' + res + '</b>' + '<br>' + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>" + '</p>';
                         } else if (rasterLayerIds == 'hightide_l2_shinsuishin') {
-                            s = '<p>' + '高潮によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                            s = '<p>' + '高潮によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '<br>' + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>" + '</p>';
                         } else if (rasterLayerIds == 'tsunami_newlegend') {
-                            s = '<p>' + '津波によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '</p>';
+                            s = '<p>' + '津波によって想定される浸水深' + '<br>' + '<b>' + res + '</b>' + '<br>' + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>" + '</p>';
                         }
                         new maplibregl.Popup()
                             .setLngLat(e.lngLat)
