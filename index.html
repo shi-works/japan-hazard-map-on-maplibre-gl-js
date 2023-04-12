@@ -410,31 +410,43 @@
     <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
         type="text/css" />
     <script type="text/javascript">
+        // add the PMTiles plugin to the maplibregl global.
+        let protocol = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol.tile);
 
         // 指定緊急避難場所
-        let protocol_hinan = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol_hinan.tile);
         let PM_Hinanbasho_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/hinanbasho_v2.pmtiles";
 
         // 夜間人口 町丁・字等別（ポリゴン）
-        let protocol_jinko = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol_jinko.tile);
         let PM_Jinko_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2ka01-47_JGD2011.pmtiles";
 
         // 夜間人口 町丁・字等別（ポイント）
-        let protocol_jinko_point = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol_jinko_point.tile);
         let PM_Jinko_Point_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2ka01-47_point_JGD2011.pmtiles";
 
         // 夜間人口 基本単位区（ポリゴン）
-        let protocol_jinko_kihon = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol_jinko_kihon.tile);
         let PM_Jinko_Kihon_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2kb01-47_JGD2011.pmtiles";
 
         // 夜間人口 基本単位区（ポイント）
-        let protocol_jinko_kihon_point = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol_jinko_kihon_point.tile);
         let PM_Jinko_Kihon_Point_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2kb01-47_point_JGD2011.pmtiles";
+
+        const p_hinanbasho = new pmtiles.PMTiles(PM_Hinanbasho_URL)
+        const p_jinko = new pmtiles.PMTiles(PM_Jinko_URL)
+        const p_jinko_point = new pmtiles.PMTiles(PM_Jinko_Point_URL)
+        const p_jinko_kihon = new pmtiles.PMTiles(PM_Jinko_Kihon_URL)
+        const p_jinko_kihon_point = new pmtiles.PMTiles(PM_Jinko_Kihon_Point_URL)
+
+        p_hinanbasho.getMetadata().then((res) => console.log(res));
+        p_jinko.getMetadata().then((res) => console.log(res));
+        p_jinko_point.getMetadata().then((res) => console.log(res));
+        p_jinko_kihon.getMetadata().then((res) => console.log(res));
+        p_jinko_kihon_point.getMetadata().then((res) => console.log(res));
+
+        // this is so we share one instance across the JS code and the map renderer
+        protocol.add(p_hinanbasho);
+        protocol.add(p_jinko);
+        protocol.add(p_jinko_point);
+        protocol.add(p_jinko_kihon);
+        protocol.add(p_jinko_kihon_point);
 
         const map = new maplibregl.Map({
             container: 'map',
