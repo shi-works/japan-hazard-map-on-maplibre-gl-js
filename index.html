@@ -410,43 +410,36 @@
     <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
         type="text/css" />
     <script type="text/javascript">
-        // add the PMTiles plugin to the maplibregl global.
-        let protocol = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol.tile);
 
         // 指定緊急避難場所
-        let PM_Hinanbasho_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/hinanbasho_v2.pmtiles";
+        let protocol_hinan = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol_hinan.tile);
+        let PM_Hinanbasho_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/r2kokusei/hinanbasho_v2.pmtiles";
 
         // 夜間人口 町丁・字等別（ポリゴン）
-        let PM_Jinko_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2ka01-47_JGD2011.pmtiles";
+        let protocol_jinko = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol_jinko.tile);
+        let PM_Jinko_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/r2kokusei/r2ka01-47_JGD2011.pmtiles";
 
         // 夜間人口 町丁・字等別（ポイント）
-        let PM_Jinko_Point_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2ka01-47_point_JGD2011.pmtiles";
+        let protocol_jinko_point = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol_jinko_point.tile);
+        let PM_Jinko_Point_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/r2kokusei/r2ka01-47_point_JGD2011.pmtiles";
 
         // 夜間人口 基本単位区（ポリゴン）
-        let PM_Jinko_Kihon_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2kb01-47_JGD2011.pmtiles";
+        let protocol_jinko_kihon = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol_jinko_kihon.tile);
+        let PM_Jinko_Kihon_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/r2kokusei/r2kb01-47_JGD2011.pmtiles";
 
         // 夜間人口 基本単位区（ポイント）
-        let PM_Jinko_Kihon_Point_URL = "https://xs489works.xsrv.jp/MapLibreGLJS/12-01/r2kb01-47_point_JGD2011.pmtiles";
+        let protocol_jinko_kihon_point = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol_jinko_kihon_point.tile);
+        let PM_Jinko_Kihon_Point_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/r2kokusei/r2kb01-47_point_JGD2011.pmtiles";
 
-        const p_hinanbasho = new pmtiles.PMTiles(PM_Hinanbasho_URL)
-        const p_jinko = new pmtiles.PMTiles(PM_Jinko_URL)
-        const p_jinko_point = new pmtiles.PMTiles(PM_Jinko_Point_URL)
-        const p_jinko_kihon = new pmtiles.PMTiles(PM_Jinko_Kihon_URL)
-        const p_jinko_kihon_point = new pmtiles.PMTiles(PM_Jinko_Kihon_Point_URL)
-
-        p_hinanbasho.getMetadata().then((res) => console.log(res));
-        p_jinko.getMetadata().then((res) => console.log(res));
-        p_jinko_point.getMetadata().then((res) => console.log(res));
-        p_jinko_kihon.getMetadata().then((res) => console.log(res));
-        p_jinko_kihon_point.getMetadata().then((res) => console.log(res));
-
-        // this is so we share one instance across the JS code and the map renderer
-        protocol.add(p_hinanbasho);
-        protocol.add(p_jinko);
-        protocol.add(p_jinko_point);
-        protocol.add(p_jinko_kihon);
-        protocol.add(p_jinko_kihon_point);
+        // PLATEAU 13100_tokyo-23ku_lod1_Building
+        let protocol_13100_tokyo_23ku_lod1_Building = new pmtiles.Protocol();
+        maplibregl.addProtocol("pmtiles", protocol_13100_tokyo_23ku_lod1_Building.tile);
+        let PM_13100_tokyo_23ku_lod1_Building_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/13100_tokyo-23ku_lod1_Building.pmtiles";
 
         const map = new maplibregl.Map({
             container: 'map',
@@ -579,7 +572,6 @@
         map.addControl(new maplibregl.AttributionControl({
             compact: true,
             // customAttribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html#dem">標高タイル</a>'
-            customAttribution: '（<a href="https://twitter.com/syanseto" target="_blank">Twitter</a> | <a href="https://github.com/shi-works/hazard-map" target="_blank">Github</a>） '
         }));
 
         /*
@@ -995,6 +987,30 @@
                 },
                 'paint': {
                     'text-color': 'black'
+                }
+            });
+
+            // ベクトルタイル
+            map.addSource("pmtiles-tokyo-23ku-lod1-Building", {
+                type: "vector",
+                url: "pmtiles://" + PM_13100_tokyo_23ku_lod1_Building_URL,
+                attribution: '<a href="https://www.geospatial.jp/ckan/dataset/plateau">3D都市モデル「Project PLATEAU」 建築物（国土交通省）を加工して作成</a>'
+            });
+
+            map.addLayer({
+                'id': 'tokyo-23ku-lod1-Building',
+                'source': 'pmtiles-tokyo-23ku-lod1-Building',
+                'source-layer': '13100_tokyo23ku_lod1_Buildingfgb',
+                "minzoom": 12,
+                "maxzoom": 18,
+                'layout': {
+                    'visibility': 'visible',
+                },
+                'type': 'fill-extrusion',
+                'paint': {
+                    "fill-extrusion-color": "#aaa",
+                    "fill-extrusion-opacity": 0.5,
+                    "fill-extrusion-height": ["get", "bldg_measuredHeight"]
                 }
             });
 
