@@ -10,7 +10,9 @@
 - https://disaportal.gsi.go.jp/hazardmapportal/hazardmap/copyright/opendata.html
 
 ## 2020年国勢調査小地域
-- 政府統計の総合窓口（e-Stat）
+- 政府統計の総合窓口（e-Stat）の2020年国勢調査小地域を加工して作成
 - https://github.com/shi-works/2020Kokusei_PMTiles
 
-## 
+## 指定緊急避難場所
+- 国土地理院 指定緊急避難場所データを加工して作成
+- https://www.gsi.go.jp/bousaichiri/hinanbasho.html
