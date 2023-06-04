@@ -1718,7 +1718,8 @@
 
             // ラスタレイヤの一覧からseamlessphotoを削除
             // var removals = ['seamlessphoto'];
-            var removals = ['gsi'];
+            // var removals = ['gsi'];
+            var removals = ['gsi', 'hillshade-tiles'];
             rasterLayerIds = rasterLayerIds.filter(function (v) {
                 return !removals.includes(v);
             });
