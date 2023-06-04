@@ -632,7 +632,7 @@
         map.addControl(
             new maplibregl.TerrainControl({
                 source: 'gsidem',
-                exaggeration: 1　// 標高を強調する倍率
+                exaggeration: 1 // 標高を強調する倍率
             })
         );
 
@@ -647,11 +647,32 @@
                 tiles: [
                     'gsidem://https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png',
                 ],
-                attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html#dem">地理院タイル</a>',
-                tileSize: 256,
-                maxzoom: 14,
+                attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html#dem">地理院タイル(標高タイル)</a>',
+                tileSize: 256
             });
 
+            // 陰影起伏図
+            map.addSource("hillshade", {
+                type: 'raster',
+                tiles: [
+                    'https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png',
+                ],
+                attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html#hillshademap" target="_blank">地理院タイル(陰影起伏図)</a>',
+                tileSize: 256
+            });
+
+            map.addLayer({
+                id: 'hillshade-tiles',
+                type: 'raster',
+                source: 'hillshade',
+                minzoom: 2,
+                maxzoom: 18,
+                paint: {
+                    'raster-opacity': 0.3
+                }
+            });
+
+            /*
             // 陰影図追加
             map.addLayer({
                 id: 'hillshade',
@@ -659,9 +680,10 @@
                 type: 'hillshade', // 陰影図レイヤー
                 paint: {
                     'hillshade-illumination-anchor': 'map', // 陰影の方向の基準
-                    'hillshade-exaggeration': 0.2, // 陰影の強さ
+                    'hillshade-exaggeration': 0.5, // 陰影の強さ
                 },
             });
+            */
 
             /*
             map.setTerrain({
