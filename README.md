@@ -3,7 +3,7 @@
 - https://shi-works.github.io/hazard-map/
 
 ## サンプル画像
-![image](https://github.com/shi-works/hazard-map/assets/71203808/29014865-9f7c-41c1-a441-b3754e7f5e7a)
+![image](https://github.com/shi-works/hazard-map/assets/71203808/94b73c17-d8da-4464-8518-d3838d1cbdc6)
 
 ## 各種ハザードマップ
 - ハザードマップポータルサイト オープンデータ配信
