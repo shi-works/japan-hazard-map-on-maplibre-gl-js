@@ -429,7 +429,8 @@
         maplibregl.addProtocol("pmtiles", protocol.tile);
 
         // 指定緊急避難場所
-        let PM_Hinanbasho_URL = "https://xs489works.xsrv.jp/pmtiles-data/r2kokusei/hinanbasho_v2.pmtiles";
+        // let PM_Hinanbasho_URL = "https://xs489works.xsrv.jp/pmtiles-data/r2kokusei/hinanbasho_v2.pmtiles";
+        let PM_Hinanbasho_URL = "https://xs489works.xsrv.jp/pmtiles-data/gsi/hinanbasho/hinanbasho_20230706.pmtiles";
 
         // 夜間人口 町丁・字等別（ポリゴン）
         let PM_Jinko_URL = "https://xs489works.xsrv.jp/pmtiles-data/r2kokusei/r2ka01-47_JGD2011.pmtiles";
@@ -1021,6 +1022,7 @@
             });
             */
 
+            /*
             // PLATEAUベクトルタイル
             map.addSource("lod1-Building", {
                 type: "vector",
@@ -1044,6 +1046,136 @@
                     "fill-extrusion-color": "#aaa",
                     "fill-extrusion-opacity": 0.5,
                     "fill-extrusion-height": ["get", "bldg_measuredHeight"]
+                }
+            });
+            */
+
+            // 地理院地図ベクトルタイル
+            map.addSource("gsibv-vectortile-source-1-4-16", {
+                type: "vector",
+                tiles: [
+                    "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
+                ],
+                attribution: '<a href="https://github.com/gsi-cyberjapan/gsivectortile-3d-like-building">地理院地図Vector（仮称）</a>'
+            });
+
+            // 地理院地図ベクトルタイル
+            // タンク
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings4302",
+                "metadata": { "name": "タンク" },
+                "type": "fill-extrusion",
+                "source-layer": "structurea",
+                "filter": ["all", ["==", "ftCode", 4302], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 10
+                }
+            });
+
+            // 巨大構造物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings4301",
+                "metadata": { "name": "巨大構造物" },
+                "type": "fill-extrusion",
+                "source-layer": "structurea",
+                "filter": ["all", ["==", "ftCode", 4301], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 100
+                }
+            });
+
+            // 普通無壁舎
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 14,
+                "maxzoom": 18,
+                "id": "buildings3111",
+                "metadata": { "name": "普通無壁舎" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3111], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 10
+                }
+            });
+
+            // 堅ろう無壁舎
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings3112",
+                "metadata": { "name": "堅ろう無壁舎" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3112], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(150,200,255)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 40
+                }
+            });
+
+            // 普通建物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 14,
+                "maxzoom": 18,
+                "id": "buildings3101",
+                "metadata": { "name": "普通建物" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3101], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 10
+                }
+            });
+
+            // 堅ろう建物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings3102",
+                "metadata": { "name": "堅ろう建物" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3102], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(150,200,255)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 40
+                }
+            });
+
+            // 高層建物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings3103",
+                "metadata": { "name": "高層建物" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3103], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(0,255,255)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 100
                 }
             });
 
@@ -1198,7 +1330,7 @@
             map.addLayer({
                 "id": "hinanbasho-1",
                 "source": "pmtiles-hinan",
-                "source-layer": "hinanbasho",
+                "source-layer": "hinanbasho_20230706",
                 "type": "symbol", // typeを'symbol'に変更
                 "layout": {
                     "icon-image": "location-pin", // 使用するアイコン名を指定
@@ -1412,7 +1544,7 @@
             map.addLayer({
                 "id": "hinanbasho-1",
                 "source": "pmtiles-hinan",
-                "source-layer": "hinanbasho",
+                "source-layer": "hinanbasho_20230706",
                 "type": "symbol", // typeを'symbol'に変更
                 "layout": {
                     "icon-image": "location-pin", // 使用するアイコン名を指定
@@ -1492,7 +1624,7 @@
             // var shikuchosommei = e.features[0].properties['都道府県名及び市町村名'];
             var jusho = e.features[0].properties['住所'];
             var shisetsumei = e.features[0].properties['施設・場所名'];
-            var chofuku = e.features[0].properties['指定避難所との重複'];
+            var chofuku = e.features[0].properties['指定避難所との住所同一'];
             // var biko = e.features[0].properties['備考'];
 
             /*
@@ -1543,7 +1675,7 @@
                     + '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>"
                     + '<br><br>'
                     + '<b>' + '<big>' + '対応している災害の種別' + '</big>' + '</b>' + '<br>' + SyubetuMei + '<br><br>'
-                    + '指定避難所との重複: ' + res_chofuku + '<br><br>'
+                    + '指定避難所との住所同一: ' + res_chofuku + '<br><br>'
                     /*
                     // 表形式
                     + '<table>' +
