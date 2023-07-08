@@ -17,8 +17,8 @@
 - 国土地理院の指定緊急避難場所データを加工して作成
 - https://www.gsi.go.jp/bousaichiri/hinanbasho.html
 
-[](
+<!-- 
 ## 3D都市モデル
 - 国土交通省の3D都市モデルPLATEAUの建築物データ（LOD1、56都市）を加工して作成
 - https://github.com/shi-works/plateau-lod1-bldg-pmtiles
-)
+-->
