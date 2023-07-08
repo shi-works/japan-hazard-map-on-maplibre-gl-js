@@ -1393,6 +1393,14 @@
             if (map.getLayer('hightide_l2_shinsuishin')) map.removeLayer('hightide_l2_shinsuishin');
             if (map.getLayer('tsunami_newlegend')) map.removeLayer('tsunami_newlegend');
 
+            // 一旦、レイヤ削除
+            if (map.getLayer('buildings4301')) map.removeLayer('buildings4301');
+            if (map.getLayer('buildings3111')) map.removeLayer('buildings3111');
+            if (map.getLayer('buildings3112')) map.removeLayer('buildings3112');
+            if (map.getLayer('buildings3101')) map.removeLayer('buildings3101');
+            if (map.getLayer('buildings3102')) map.removeLayer('buildings3102');
+            if (map.getLayer('buildings3103')) map.removeLayer('buildings3103');
+
             // PNGタイル切り替え
             map.addLayer({
                 id: currentLayerName,
@@ -1414,9 +1422,133 @@
             map.removeLayer("jinko_kihon_label");
 
             // 一旦、レイヤ削除
-            map.removeLayer("lod1-Building");
+            // map.removeLayer("lod1-Building");
 
             // レイヤ追加
+
+            // 地理院地図ベクトルタイル
+            // タンク
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings4302",
+                "metadata": { "name": "タンク" },
+                "type": "fill-extrusion",
+                "source-layer": "structurea",
+                "filter": ["all", ["==", "ftCode", 4302], ["==", "$type", "Polygon"]],
+                "paint": {
+                    // "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-color": "rgb(242,234,226)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 10
+                }
+            });
+
+            // 巨大構造物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings4301",
+                "metadata": { "name": "巨大構造物" },
+                "type": "fill-extrusion",
+                "source-layer": "structurea",
+                "filter": ["all", ["==", "ftCode", 4301], ["==", "$type", "Polygon"]],
+                "paint": {
+                    // "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-color": "rgb(242,234,226)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 100
+                }
+            });
+
+            // 普通無壁舎
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 14,
+                "maxzoom": 18,
+                "id": "buildings3111",
+                "metadata": { "name": "普通無壁舎" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3111], ["==", "$type", "Polygon"]],
+                "paint": {
+                    // "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-color": "rgb(242,234,226)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 10
+                }
+            });
+
+            // 堅ろう無壁舎
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings3112",
+                "metadata": { "name": "堅ろう無壁舎" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3112], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(150,200,255)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 40
+                }
+            });
+
+            // 普通建物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 14,
+                "maxzoom": 18,
+                "id": "buildings3101",
+                "metadata": { "name": "普通建物" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3101], ["==", "$type", "Polygon"]],
+                "paint": {
+                    // "fill-extrusion-color": "rgb(0,100,150)",
+                    "fill-extrusion-color": "rgb(242,234,226)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 10
+                }
+            });
+
+            // 堅ろう建物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings3102",
+                "metadata": { "name": "堅ろう建物" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3102], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(150,200,255)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 40
+                }
+            });
+
+            // 高層建物
+            map.addLayer({
+                "source": "gsibv-vectortile-source-1-4-16",
+                "minzoom": 13,
+                "maxzoom": 18,
+                "id": "buildings3103",
+                "metadata": { "name": "高層建物" },
+                "type": "fill-extrusion",
+                "source-layer": "building",
+                "filter": ["all", ["==", "ftCode", 3103], ["==", "$type", "Polygon"]],
+                "paint": {
+                    "fill-extrusion-color": "rgb(0,255,255)",
+                    "fill-extrusion-opacity": 0.3,
+                    "fill-extrusion-height": 100
+                }
+            });
 
             // 夜間人口（町丁・字等別）ラインレイヤ
             map.addLayer({
@@ -1446,6 +1578,7 @@
                 }
             });
 
+            /*
             // PLATEAUベクトルタイル
             map.addLayer({
                 'id': 'lod1-Building',
@@ -1463,6 +1596,7 @@
                     "fill-extrusion-height": ["get", "bldg_measuredHeight"]
                 }
             });
+            */
 
             // 夜間人口（町丁・字等別）ラベルレイヤ
             map.addLayer({
