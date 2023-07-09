@@ -932,124 +932,6 @@
 
             map.showTileBoundaries = false;
 
-            // 夜間人口（町丁・字等別）ベクトルタイル（ポリゴン）
-            map.addSource("pmtiles-jinko", {
-                type: "vector",
-                url: "pmtiles://" + PM_Jinko_URL,
-                attribution: '<a href="https://www.e-stat.go.jp/">2020年国勢調査小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
-            });
-
-            // 夜間人口（基本単位区）ベクトルタイル（ポリゴン）
-            map.addSource("pmtiles-jinko-kihon", {
-                type: "vector",
-                url: "pmtiles://" + PM_Jinko_Kihon_URL,
-                attribution: '<a href="https://www.e-stat.go.jp/">2020年国勢調査小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
-            });
-
-            // 夜間人口（町丁・字等別）ベクトルタイル（ポイント）
-            map.addSource("pmtiles-jinko-point", {
-                type: "vector",
-                url: "pmtiles://" + PM_Jinko_Point_URL,
-                // attribution: '<a href="https://www.e-stat.go.jp/">国勢調査 小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
-            });
-
-            // 夜間人口（町丁・字等別）ベクトルタイル（ポイント）
-            map.addSource("pmtiles-jinko-kihon-point", {
-                type: "vector",
-                url: "pmtiles://" + PM_Jinko_Kihon_Point_URL,
-                // attribution: '<a href="https://www.e-stat.go.jp/">国勢調査 小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
-            });
-
-            // 夜間人口（町丁・字等別）ラインレイヤ
-            map.addLayer({
-                "id": "jinko-line",
-                "type": "line",
-                "source": "pmtiles-jinko",
-                "source-layer": "r2ka0147_JGD2011",
-                minzoom: 12,
-                maxzoom: 16,
-                'paint': {
-                    'line-color': 'rgba(0, 101, 203, 1)',
-                    'line-width': 1.5
-                }
-            });
-
-            // 夜間人口（基本単位区）ラインレイヤ
-            map.addLayer({
-                "id": "jinko-kihon-line",
-                "type": "line",
-                "source": "pmtiles-jinko-kihon",
-                "source-layer": "r2kb0147_JGD2011",
-                minzoom: 16,
-                maxzoom: 23,
-                'paint': {
-                    'line-color': 'rgba(0, 101, 203, 1)',
-                    'line-width': 1.5
-                }
-            });
-
-            /*
-            // 夜間人口（町丁・字等別）ポイントレイヤ
-            map.addLayer({
-                'id': 'jinko_circle',
-                'type': 'circle',
-                'source': 'pmtiles-jinko-point',
-                "source-layer": "r2ka0147_point_JGD2011",
-                'minzoom': 12,
-                'maxzoom': 16,
-                'paint': {
-                    'circle-color': 'rgba(0, 127, 255, 1)',
-                    'circle-opacity': 1,
-                    'circle-radius': 12
-                }
-            });
-            */
-
-            /*
-            // 夜間人口（基本単位区）ポイントレイヤ
-            map.addLayer({
-                'id': 'jinko_kihon-circle',
-                'type': 'circle',
-                'source': 'pmtiles-jinko-kihon-point',
-                "source-layer": "r2kb0147_point_JGD2011",
-                'minzoom': 16,
-                'maxzoom': 23,
-                'paint': {
-                    'circle-color': 'rgba(0, 101, 203, 1)',
-                    'circle-opacity': 1,
-                    'circle-radius': 5
-                }
-            });
-            */
-
-            /*
-            // PLATEAUベクトルタイル
-            map.addSource("lod1-Building", {
-                type: "vector",
-                // url: "pmtiles://" + PM_13100_tokyo_23ku_lod1_Building_URL,
-                url: "pmtiles://" + PM_PLATEAU_lod1_Building_URL,
-                attribution: '<a href="https://www.geospatial.jp/ckan/dataset/plateau">3D都市モデル「Project PLATEAU」 建築物（国土交通省）を加工して作成</a>'
-            });
-
-            // PLATEAUベクトルタイル
-            map.addLayer({
-                'id': 'lod1-Building',
-                'source': 'lod1-Building',
-                'source-layer': 'PLATEAU_2020_LOD1fgb',
-                "minzoom": 14,
-                "maxzoom": 18,
-                'layout': {
-                    'visibility': 'visible',
-                },
-                'type': 'fill-extrusion',
-                'paint': {
-                    "fill-extrusion-color": "#aaa",
-                    "fill-extrusion-opacity": 0.5,
-                    "fill-extrusion-height": ["get", "bldg_measuredHeight"]
-                }
-            });
-            */
-
             // 地理院地図ベクトルタイル
             map.addSource("gsibv-vectortile-source-1-4-16", {
                 type: "vector",
@@ -1202,10 +1084,128 @@
                     "text-font": ["Open Sans Bold"],
                     "text-field": ["get", "knj"],
                     "symbol-placement": "point",
-                    "text-allow-overlap": true,
+                    "text-allow-overlap": false,
                     "visibility": "visible"
                 }
             });
+
+            // 夜間人口（町丁・字等別）ベクトルタイル（ポリゴン）
+            map.addSource("pmtiles-jinko", {
+                type: "vector",
+                url: "pmtiles://" + PM_Jinko_URL,
+                attribution: '<a href="https://www.e-stat.go.jp/">2020年国勢調査小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
+            });
+
+            // 夜間人口（基本単位区）ベクトルタイル（ポリゴン）
+            map.addSource("pmtiles-jinko-kihon", {
+                type: "vector",
+                url: "pmtiles://" + PM_Jinko_Kihon_URL,
+                attribution: '<a href="https://www.e-stat.go.jp/">2020年国勢調査小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
+            });
+
+            // 夜間人口（町丁・字等別）ベクトルタイル（ポイント）
+            map.addSource("pmtiles-jinko-point", {
+                type: "vector",
+                url: "pmtiles://" + PM_Jinko_Point_URL,
+                // attribution: '<a href="https://www.e-stat.go.jp/">国勢調査 小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
+            });
+
+            // 夜間人口（町丁・字等別）ベクトルタイル（ポイント）
+            map.addSource("pmtiles-jinko-kihon-point", {
+                type: "vector",
+                url: "pmtiles://" + PM_Jinko_Kihon_Point_URL,
+                // attribution: '<a href="https://www.e-stat.go.jp/">国勢調査 小地域（政府統計の総合窓口（e-Stat））を加工して作成</a>'
+            });
+
+            // 夜間人口（町丁・字等別）ラインレイヤ
+            map.addLayer({
+                "id": "jinko-line",
+                "type": "line",
+                "source": "pmtiles-jinko",
+                "source-layer": "r2ka0147_JGD2011",
+                minzoom: 12,
+                maxzoom: 16,
+                'paint': {
+                    'line-color': 'rgba(0, 101, 203, 1)',
+                    'line-width': 1.5
+                }
+            });
+
+            // 夜間人口（基本単位区）ラインレイヤ
+            map.addLayer({
+                "id": "jinko-kihon-line",
+                "type": "line",
+                "source": "pmtiles-jinko-kihon",
+                "source-layer": "r2kb0147_JGD2011",
+                minzoom: 16,
+                maxzoom: 23,
+                'paint': {
+                    'line-color': 'rgba(0, 101, 203, 1)',
+                    'line-width': 1.5
+                }
+            });
+
+            /*
+            // 夜間人口（町丁・字等別）ポイントレイヤ
+            map.addLayer({
+                'id': 'jinko_circle',
+                'type': 'circle',
+                'source': 'pmtiles-jinko-point',
+                "source-layer": "r2ka0147_point_JGD2011",
+                'minzoom': 12,
+                'maxzoom': 16,
+                'paint': {
+                    'circle-color': 'rgba(0, 127, 255, 1)',
+                    'circle-opacity': 1,
+                    'circle-radius': 12
+                }
+            });
+            */
+
+            /*
+            // 夜間人口（基本単位区）ポイントレイヤ
+            map.addLayer({
+                'id': 'jinko_kihon-circle',
+                'type': 'circle',
+                'source': 'pmtiles-jinko-kihon-point',
+                "source-layer": "r2kb0147_point_JGD2011",
+                'minzoom': 16,
+                'maxzoom': 23,
+                'paint': {
+                    'circle-color': 'rgba(0, 101, 203, 1)',
+                    'circle-opacity': 1,
+                    'circle-radius': 5
+                }
+            });
+            */
+
+            /*
+            // PLATEAUベクトルタイル
+            map.addSource("lod1-Building", {
+                type: "vector",
+                // url: "pmtiles://" + PM_13100_tokyo_23ku_lod1_Building_URL,
+                url: "pmtiles://" + PM_PLATEAU_lod1_Building_URL,
+                attribution: '<a href="https://www.geospatial.jp/ckan/dataset/plateau">3D都市モデル「Project PLATEAU」 建築物（国土交通省）を加工して作成</a>'
+            });
+
+            // PLATEAUベクトルタイル
+            map.addLayer({
+                'id': 'lod1-Building',
+                'source': 'lod1-Building',
+                'source-layer': 'PLATEAU_2020_LOD1fgb',
+                "minzoom": 14,
+                "maxzoom": 18,
+                'layout': {
+                    'visibility': 'visible',
+                },
+                'type': 'fill-extrusion',
+                'paint': {
+                    "fill-extrusion-color": "#aaa",
+                    "fill-extrusion-opacity": 0.5,
+                    "fill-extrusion-height": ["get", "bldg_measuredHeight"]
+                }
+            });
+            */
 
             // 夜間人口（町丁・字等別）ラベルレイヤ
             map.addLayer({
