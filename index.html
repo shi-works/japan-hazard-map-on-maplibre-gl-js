@@ -1959,8 +1959,18 @@
 
         });
 
+        // 画像が存在するかどうかを確認する関数
+        async function checkImage(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok;
+            } catch {
+                return false;
+            }
+        }
+
         // 自然災害伝承碑ポップアップ表示
-        map.on('click', 'denshouhi-1', (e) => {
+        map.on('click', 'denshouhi-1', async (e) => {
             var lng = e.features[0].geometry.coordinates[0];
             var lat = e.features[0].geometry.coordinates[1];
             var id = e.features[0].properties['ID'];
@@ -1970,7 +1980,17 @@
             var saigaimei = e.features[0].properties['災害名'];
             var saigaishubetsu = e.features[0].properties['災害種別'];
             var denshonaiyo = e.features[0].properties['伝承内容'];
-            var imgURL = "https://maps.gsi.go.jp/legend/disaster_lore/" + id.substring(0, 5) + "/" + id + ".jpg";
+
+            // 画像のURL（.jpgと.JPGの両方を試す）
+            let imgURL_jpg = "https://maps.gsi.go.jp/legend/disaster_lore/" + id.substring(0, 5) + "/" + id + ".jpg";
+            let imgURL_JPG = "https://maps.gsi.go.jp/legend/disaster_lore/" + id.substring(0, 5) + "/" + id + ".JPG";
+
+            // どちらの画像が存在するかを確認
+            let imgURL = await checkImage(imgURL_jpg) ? imgURL_jpg :
+                await checkImage(imgURL_JPG) ? imgURL_JPG :
+                    '';  // どちらの画像も存在しない場合は空の文字列を使用
+
+            // var imgURL = "https://maps.gsi.go.jp/legend/disaster_lore/" + id.substring(0, 5) + "/" + id + ".jpg";
 
             new maplibregl.Popup()
                 .setLngLat(e.lngLat)
@@ -1981,7 +2001,7 @@
                     '<div style="border-bottom:1px solid #000;">災害名: ' + saigaimei + '</div>' +
                     '<div style="border-bottom:1px solid #000;">災害種別: ' + saigaishubetsu + '</div>' +
                     '<div style="border-bottom:1px solid #000;">伝承内容: ' + denshonaiyo + '</div>' +
-                    '<div><img src="' + imgURL + '" alt="画像" style="width: 100%; height: auto;"></div>' +
+                    '<div><a href="' + imgURL + '" target="_blank"><img src="' + imgURL + '" alt="画像" style="width: 100%; height: auto;"></a></div>' +
                     '<div style="border-bottom:1px solid #000;">ID: ' + id + '</div>' +
                     '<div><a href="https://www.google.com/maps?q=' + lat + ',' + lng + '&hl=ja" target="_blank">🌎Google Maps</a></div>'
                 )
