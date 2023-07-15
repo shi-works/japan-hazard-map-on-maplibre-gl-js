@@ -29,7 +29,7 @@
             position: absolute;
             width: 200px;
             bottom: 20px;
-            left: 0;
+            left: 0px;
             padding: 10px;
         }
 
@@ -172,16 +172,19 @@
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
-            width: fit-content;
-            /*width: 150px;*/
+            /*width: fit-content;*/
+            width: 200px;
+            left: 10px;
             position: absolute;
-            /*bottom: 120px;*/
-            top: 5px;
+            bottom: 110px;
+            /*top: 5px;*/
             z-index: 10;
         }
 
         #basemaps {
             font: 12px/14px Arial, Helvetica, sans-serif;
+            width: 100%;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -465,14 +468,14 @@
 
         // PLATEAU 2020_lod1_Building
         // let PM_PLATEAU_lod1_Building_URL = "https://xs489works.xsrv.jp/pmtiles-data/plateau/PLATEAU_2020_LOD1.pmtiles";
-        let PM_PLATEAU_lod1_Building_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2020_LOD1.pmtiles";
+        // let PM_PLATEAU_lod1_Building_URL = "https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2020_LOD1.pmtiles";
 
         const p1 = new pmtiles.PMTiles(PM_Hinanbasho_URL)
         const p2 = new pmtiles.PMTiles(PM_Jinko_URL)
         const p3 = new pmtiles.PMTiles(PM_Jinko_Point_URL)
         const p4 = new pmtiles.PMTiles(PM_Jinko_Kihon_URL)
         const p5 = new pmtiles.PMTiles(PM_Jinko_Kihon_Point_URL)
-        const p6 = new pmtiles.PMTiles(PM_PLATEAU_lod1_Building_URL)
+        // const p6 = new pmtiles.PMTiles(PM_PLATEAU_lod1_Building_URL)
 
         // this is so we share one instance across the JS code and the map renderer
         protocol.add(p1);
@@ -480,7 +483,7 @@
         protocol.add(p3);
         protocol.add(p4);
         protocol.add(p5);
-        protocol.add(p6);
+        // protocol.add(p6);
 
         const map = new maplibregl.Map({
             container: 'map',
@@ -553,7 +556,6 @@
         map.addControl(new MapLibreStyleSwitcherControl(styles));
         */
 
-        /*
         // ジオコーダー追加
         var geocoder_api = {
             forwardGeocode: async (config) => {
@@ -600,7 +602,6 @@
             new MaplibreGeocoder(geocoder_api, {
                 maplibregl: maplibregl
             }), 'top-right');
-        */
 
         // ズーム・回転
         map.addControl(new maplibregl.NavigationControl());
