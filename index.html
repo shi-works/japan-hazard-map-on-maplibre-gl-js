@@ -4,14 +4,19 @@
     <title>ハザードマップ（PMTiles）</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
     <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+    -->
+    <script src='https://unpkg.com/maplibre-gl@3.1.0/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@3.1.0/dist/maplibre-gl.css' rel='stylesheet' />
     <!--<script src="https://unpkg.com/maplibre-gl@2.2.0-pre.2/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@2.2.0-pre.2/dist/maplibre-gl.css" rel="stylesheet" />-->
     <!--<link href='https://watergis.github.io/maplibre-gl-export/maplibre-gl-export.css' rel='stylesheet' />
     <script src='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js'></script>
     <script src="https://watergis.github.io/maplibre-gl-export/maplibre-gl-export.js"></script>-->
     <script src="https://unpkg.com/pmtiles@2.7.0/dist/index.js"></script>
+    <script type="module" src="maplibre-gl-gsi-terrain-fast-png.js"></script>
     <!--<script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>-->
     <!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
     <style>
@@ -567,6 +572,7 @@
                         config.query +
                         '&format=geojson&polygon_geojson=1&addressdetails=1';
                     const response = await fetch(request);
+                    console.log(response)
                     const geojson = await response.json();
                     for (let feature of geojson.features) {
                         let center = [
@@ -711,6 +717,7 @@
             });
             */
 
+            /*
             // maplibre-gl-gsi-terrain
             // 【参考】https://github.com/Kanahiro/maplibre-gl-gsi-terrain
             const gsidem2terrainrgb = (r, g, b) => {
@@ -768,6 +775,7 @@
                 image.src = params.url.replace('gsidem://', '');
                 return { cancel: () => { } };
             });
+            */
 
             /*
             // 陰影起伏図
