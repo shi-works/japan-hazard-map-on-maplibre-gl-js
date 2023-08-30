@@ -3,7 +3,7 @@
 - https://shi-works.github.io/hazard-map/
 
 ## サンプル画像
-![image](https://github.com/shi-works/hazard-map/assets/71203808/94b73c17-d8da-4464-8518-d3838d1cbdc6)
+![image](https://github.com/shi-works/hazard-map/assets/71203808/7a2c0b34-3541-4458-8c91-49f00c52f161)
 
 ## 各種ハザードマップ
 - ハザードマップポータルサイト オープンデータ配信
@@ -13,9 +13,13 @@
 - 政府統計の総合窓口（e-Stat）の2020年国勢調査小地域を加工して作成
 - https://github.com/shi-works/2020Kokusei_PMTiles
 
-## 指定緊急避難場所
+## 指定緊急避難場所データ
 - 国土地理院の指定緊急避難場所データを加工して作成
 - https://www.gsi.go.jp/bousaichiri/hinanbasho.html
+
+## 自然災害伝承碑データ
+- 国土地理院の自然災害伝承碑データを加工して作成
+- https://www.gsi.go.jp/bousaichiri/denshouhi_datainfo.html
 
 ## 国土地理院ベクトルタイルを用いた3D風地図
 - https://github.com/gsi-cyberjapan/gsivectortile-3d-like-building
