@@ -27,6 +27,13 @@ https://shi-works.github.io/hazard-map-on-maplibre-gl-js/
       2. 本データの災害名について、同一の災害を伝承する自然災害伝承碑であっても、災害名の表記が異なる場合があることにご注意ください。
       3. 国土地理院のウェブ地図に掲載されている自然災害伝承碑の写真の一部は、第三者による二次利用に関して権利者への確認が必要な場合があります。別途、市町村別掲載情報一覧をご確認いただき、第三者に権利のあるものを利用する場合は、利用者の責任において確認してください。
 
+## 地域・交通データ研究所
+- 令和2年簡易100mメッシュ人口データ（石川県、富山県）（PMTiles形式）
+    - 出典：https://github.com/shi-works/noto-hanto-earthquake-2024-100m-mesh-pop-data
+        - 原初データ出典：[地域分析に有用なデータの提供, 地域・交通データ研究所代表（東京大学空間情報科学研究センター客員研究員）西澤明](https://gtfs-gis.jp/teikyo/index.html)
+    - 概要：地域・交通データ研究所にて公開されている令和2年簡易100mメッシュ人口データをFlatGeobuf形式に変換したデータです。
+    - ライセンス：[西澤明](https://gtfs-gis.jp/teikyo/index.html)、[@shi-works](https://twitter.com/shi__works)、[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja)
+
 ## 背景地図及び地形データ
 - 国土地理院 最適化ベクトルタイル
     - 出典：https://github.com/gsi-cyberjapan/optimal_bvmap
