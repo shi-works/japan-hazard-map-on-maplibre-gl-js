@@ -1,7 +1,7 @@
 # ハザードマップ on MapLibre GL JS
 ## Public Website
 https://shi-works.github.io/hazard-map-on-maplibre-gl-js/
-![image](https://github.com/shi-works/hazard-map-on-maplibre-gl-js/assets/71203808/a1800209-f88f-4005-a2c8-4395d469ce25)
+![image](https://github.com/shi-works/hazard-map-on-maplibre-gl-js/assets/71203808/c22259e7-62f6-4c5c-b1c7-5b13b0adc82e)
 
 ## 国土地理院
 - 各種ハザードマップ（PNGタイル形式）
