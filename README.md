@@ -1,6 +1,6 @@
 # ハザードマップ on MapLibre GL JS
 ## Public Website
-- https://shi-works.github.io/hazard-map/
+- https://shi-works.github.io/hazard-map-on-maplibre-gl-js/
 
 ## サンプル画像
 ![image](https://github.com/shi-works/hazard-map/assets/71203808/7a2c0b34-3541-4458-8c91-49f00c52f161)
