@@ -70,6 +70,49 @@
             /*overflow: scroll;*/
         }
 
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content {
+            padding: 8px 10px;
+            font: 12px/14px Arial, Helvetica, sans-serif;
+            color: black;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+            border-radius: 5px;
+            width: 280px;
+            height: 220px;
+            /*overflow: scroll;*/
+        }
+
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .shinouchimei-title {
+            color: red;
+            font-size: larger;
+        }
+
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info th {
+            width: 100px;
+        }
+
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info td:nth-child(1) {
+            text-align: right;
+            width: 100px;
+            white-space: nowrap;
+        }
+
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info td:nth-child(2) {
+            text-align: left;
+            width: 150px;
+            white-space: nowrap;
+        }
+
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info b {
+            text-align: right;
+        }
+
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info,
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info th,
+        .custom-100m-mesh-pop2020-popup .maplibregl-popup-content .pop-info td {
+            font: 12px/14px Arial, Helvetica, sans-serif;
+        }
+
         .maplibregl-ctrl-geocoder {
             font-size: 12px;
             line-height: 12px;
@@ -118,16 +161,6 @@
             margin-right: 20px;
         }
 
-        th,
-        td {
-            border: solid 1px;
-        }
-
-        table {
-            font-size: 9pt;
-            border-collapse: collapse;
-        }
-
         .legend {
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 3px;
@@ -170,6 +203,38 @@
             background-image: url('./legend/kaokutoukai_kagan.png');
             width: 100px;
             height: 68px;
+        }
+
+        .legend-pop {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+            font: 12px/14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            padding: 10px;
+            position: absolute;
+            bottom: 110px;
+            left: 10px;
+            z-index: 1;
+            line-height: 20px;
+            height: auto;
+        }
+
+        .legend-pop h4 {
+            margin: 0 0 10px;
+        }
+
+        .legend-pop div span {
+            border-radius: 50%;
+            display: inline-block;
+            height: 15px;
+            margin-right: 10px;
+            width: 15px;
+            color: orangered
+        }
+
+        .legend-pop .square {
+            width: 15px;
+            height: 15px;
         }
     </style>
 </head>
@@ -243,6 +308,10 @@
                         <div>
                             <input type="radio" id="tsunami_newlegend" name="layer" value="tsunami_newlegend">
                             <label for="tsunami_newlegend">津波浸水想定</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="pop-map" value="pop-map">
+                            <label for="pop-map">令和2年100mﾒｯｼｭ人口</label>
                         </div>
                     </div>
                 </div>
@@ -414,6 +483,21 @@
         <div><img src="./img/location-pin.png" alt="指定緊急避難場所" style="width:20px; height:20px;" />指定緊急避難場所</div>
         <div><img src="./img/location-pin2_red.png" alt="自然災害伝承碑" style="width:20px; height:20px;" />自然災害伝承碑</div>
     </div>
+    <div id="legend-pop" style="display:none;" class='legend-pop'>
+        <h4>人口(100mﾒｯｼｭ)</h4>
+        <div class="square" style='background-color: #0000FF; display: inline-block;'>
+        </div><span style="display: inline-block; margin-left: 5px;">～10人未満</span><br>
+        <div class="square" style='background-color: #00FFFF; display: inline-block;'>
+        </div><span style="display: inline-block; margin-left: 5px;">10～20人未満</span><br>
+        <div class="square" style='background-color: #00FF00; display: inline-block;'>
+        </div><span style="display: inline-block; margin-left: 5px;">20～40人未満</span><br>
+        <div class="square" style='background-color: #FFBF00; display: inline-block;'>
+        </div><span style="display: inline-block; margin-left: 5px;">40～60人未満</span><br>
+        <div class="square" style='background-color: #FF0000; display: inline-block;'>
+        </div><span style="display: inline-block; margin-left: 5px;">60～80人未満</span><br>
+        <div class="square" style='background-color: #CB00CB; display: inline-block;'>
+        </div><span style="display: inline-block; margin-left: 5px;">80人以上</span><br>
+    </div>
     <script type="module">
         // Terrain-RGB形式への変換モジュール
         maplibregl.addProtocol('numpng', makeNumPngProtocol());
@@ -512,8 +596,23 @@
             })
         );
 
-        // 初期レイヤー
-        let currentLayerName = 'flood_l2_shinsuishin';
+        // 人口色分け用のフィルタ準備
+        let p1 = ["all", [">=", ['to-number', ["get", "PopT"]], 0], ["<", ['to-number', ["get", "PopT"]], 10]];
+        let p2 = ["all", [">=", ['to-number', ["get", "PopT"]], 10], ["<", ['to-number', ["get", "PopT"]], 20]];
+        let p3 = ["all", [">=", ['to-number', ["get", "PopT"]], 20], ["<", ['to-number', ["get", "PopT"]], 40]];
+        let p4 = ["all", [">=", ['to-number', ["get", "PopT"]], 40], ["<", ['to-number', ["get", "PopT"]], 60]];
+        let p5 = ["all", [">=", ['to-number', ["get", "PopT"]], 60], ["<", ['to-number', ["get", "PopT"]], 80]];
+        let p6 = ["all", [">=", ['to-number', ["get", "PopT"]], 80], ["<", ['to-number', ["get", "PopT"]], 1000000]];
+
+        // 人口色分け用色の準備
+        let pop_colors = [
+            '#0000FF',
+            '#00FFFF',
+            '#00FF00',
+            '#FFBF00',
+            '#FF0000',
+            '#CB00CB'
+        ]
 
         // マップをロード
         map.on("load", () => {
@@ -850,6 +949,40 @@
                 }
             });
 
+            // 令和2年簡易100mメッシュ人口（全国）ソース
+            map.addSource("100m_mesh_pop2020", {
+                "type": "vector",
+                "url": "pmtiles://https://xs489works.xsrv.jp/pmtiles-data/100m_mesh_pop2020/100m_mesh_pop2020_v2.pmtiles",
+                "attribution": '<a href="https://gtfs-gis.jp/teikyo/index.html" target="_blank">地域・交通データ研究所 簡易100mメッシュ人口データ(2020年国勢調査ベース)</a>',
+            });
+
+            // 令和2年簡易100mメッシュ人口（全国）レイヤ
+            map.addLayer({
+                "id": "100m_mesh_pop2020_fill",
+                "type": "fill",
+                "source": "100m_mesh_pop2020",
+                "source-layer": "100m_mesh_pop2020fgb",
+                "minzoom": 12,
+                "maxzoom": 23,
+                "layout": {
+                    "visibility": "none"
+                },
+                "paint": {
+                    "fill-color": [
+                        "case",
+                        p1, pop_colors[0],
+                        p2, pop_colors[1],
+                        p3, pop_colors[2],
+                        p4, pop_colors[3],
+                        p5, pop_colors[4],
+                        p6, pop_colors[5],
+                        pop_colors[5]
+                    ],
+                    "fill-opacity": 0.5,
+                    "fill-outline-color": "rgba(0,0,0,0)"
+                }
+            });
+
             // 指定緊急避難場所ソース
             map.addSource("hinanbasho", {
                 "type": "vector",
@@ -1011,6 +1144,20 @@
                 legends[key].style.display = (key === layerId) ? 'block' : 'none';
             }
         }
+
+        // 簡易100mメッシュ人口の表示・非表示切り替え制御
+        document.getElementById('pop-map').addEventListener('change', function (e) {
+            var legend = document.getElementById('legend-pop');
+            if (e.target.checked) {
+                // チェックボックスがON - レイヤーと凡例を表示
+                map.setLayoutProperty('100m_mesh_pop2020_fill', 'visibility', 'visible');
+                legend.style.display = 'block';
+            } else {
+                // チェックボックスがOFF - レイヤーと凡例を非表示
+                map.setLayoutProperty('100m_mesh_pop2020_fill', 'visibility', 'none');
+                legend.style.display = 'none';
+            }
+        });
 
         // ============================== ポップアップ表示 ==============================
 
@@ -1212,10 +1359,12 @@
             var rasterLayerIds = [];
             const mapLayers = map.getStyle().layers;
 
-            // 全てのレイヤーを走査して、'visibility'が'visible'のものをフィルタリング
+            // 全てのレイヤーを走査して、'type'が'raster'かつ'visibility'が'visible'のものをフィルタリング
             mapLayers.forEach(layer => {
                 const visibility = map.getLayoutProperty(layer.id, 'visibility');
-                if (visibility === 'visible') {
+                // レイヤーのtypeプロパティを取得
+                const type = layer.type;
+                if (visibility === 'visible' && type === 'raster') {
                     rasterLayerIds.push(layer.id);
                 }
             });
@@ -1259,9 +1408,8 @@
                 });
 
                 // クリックしたピクセル座標にあるすべてのレイヤの名前を出力する
-                // console.log('Clicked layers:', clickedLayerNames);
-
-                if (clickedLayerNames.indexOf('hinanbasho') === -1 && clickedLayerNames.indexOf('denshouhi') === -1) {
+                console.log('Clicked layers:', clickedLayerNames);
+                if (clickedLayerNames.indexOf('hinanbasho') === -1 && clickedLayerNames.indexOf('denshouhi') === -1 && clickedLayerNames.indexOf('100m_mesh_pop2020_fill') === -1) {
                     // ポップアップ表示
                     const lng = e.lngLat.lng;
                     const lat = e.lngLat.lat;
@@ -1286,7 +1434,73 @@
                     });
                 }
             }
+        });
 
+        // クリック時のポップアップ表示
+        map.on('click', '100m_mesh_pop2020_fill', (e) => {
+            var coordinates = e.features[0].geometry.coordinates[0]; // ポリゴンの頂点の配列
+            var lngSum = 0, latSum = 0;
+
+            coordinates.forEach(coord => {
+                lngSum += coord[0]; // 経度の合計
+                latSum += coord[1]; // 緯度の合計
+            });
+
+            var lng = lngSum / coordinates.length; // 経度の平均
+            var lat = latSum / coordinates.length; // 緯度の平均
+
+            var MESH_CODE = e.features[0].properties['MESH_CODE'];
+            var PopT = e.features[0].properties['PopT'];
+            var Pop0_14 = e.features[0].properties['Pop0_14'];
+            var Pop15_64 = e.features[0].properties['Pop15_64'];
+            var Pop65over = e.features[0].properties['Pop65over'];
+            var Pop75over = e.features[0].properties['Pop75over'];
+            var Pop85over = e.features[0].properties['Pop85over'];
+
+            new maplibregl.Popup({ className: 'custom-100m-mesh-pop2020-popup' })
+                .setLngLat(e.lngLat)
+                .setHTML(
+                    '<div style="font-size: 1.2em; color: #0065CB;"><strong>簡易100mメッシュ人口</strong></div>' +
+                    '<div style="font-size: 1.2em; color: #0065CB;"><strong>(2020年国勢調査ベース)</strong></div>' +
+                    '<table class="pop-info">' +
+                    '<tr>' +
+                    '<th></th>' +
+                    '<th></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>メッシュコード：</td>' +
+                    '<td><b>' + MESH_CODE + '</b></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>総人口：</td>' +
+                    '<td><b>' + PopT + '人' + '</b></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>0～14歳人口：</td>' +
+                    '<td><b>' + Pop0_14 + '人' + '</b></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>15～64歳人口：</td>' +
+                    '<td><b>' + Pop15_64 + '人' + '</b></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>65歳以上人口：</td>' +
+                    '<td><b>' + Pop65over + '人' + '</b></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>75歳以上人口：</td>' +
+                    '<td><b>' + Pop75over + '人' + '</b></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>85歳以上人口：</td>' +
+                    '<td><b>' + Pop85over + '人' + '</b></td>' +
+                    '</tr>' +
+                    '</table>' +
+                    '※このデータは、簡易な方法で人口を按分したものであり、当該100mメッシュの実際の人口を示しているものではありません。' + '<br>' +
+                    '<a href=\https://www.google.com/maps?q=' + lat + "," + lng + "&hl=ja' target='_blank'>🌎Google Maps</a>" + ' ' +
+                    '<a href=\https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + "&hl=ja' target='_blank'>📷Street View</a>"
+                )
+                .addTo(map);
         });
     </script>
 </body>
