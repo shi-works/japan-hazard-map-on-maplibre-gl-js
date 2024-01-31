@@ -27,11 +27,13 @@ https://shi-works.github.io/hazard-map-on-maplibre-gl-js/
       2. 本データの災害名について、同一の災害を伝承する自然災害伝承碑であっても、災害名の表記が異なる場合があることにご注意ください。
       3. 国土地理院のウェブ地図に掲載されている自然災害伝承碑の写真の一部は、第三者による二次利用に関して権利者への確認が必要な場合があります。別途、市町村別掲載情報一覧をご確認いただき、第三者に権利のあるものを利用する場合は、利用者の責任において確認してください。
 
-## 国土地理院ベクトルタイルを用いた3D風地図
-- https://github.com/gsi-cyberjapan/gsivectortile-3d-like-building
-
-<!-- 
-## 3D都市モデル
-- 国土交通省の3D都市モデルPLATEAUの建築物データ（LOD1、56都市）を加工して作成
-- https://github.com/shi-works/plateau-lod1-bldg-pmtiles
--->
+## 背景地図及び地形データ
+- 国土地理院 最適化ベクトルタイル
+    - 出典：https://github.com/gsi-cyberjapan/optimal_bvmap
+    - ライセンス：[国土地理院コンテンツ利用規約](https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html)に従い、出典明示により、転載も含め使用可
+- 国土地理院 地理院タイル（陰影起伏図）
+    - 出典：https://maps.gsi.go.jp/development/ichiran.html#hillshademap
+    - ライセンス：[国土地理院コンテンツ利用規約](https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html)に従い、出典明示により、転載も含め使用可
+- 産業技術総合研究所 シームレス標高タイル（統合DEM）
+    - 出典：https://tiles.gsj.jp/tiles/elev/tiles.html
+    - ライセンス：「[産総研地質調査総合センターウェブサイト利用規約](https://www.gsj.jp/license/license.html)」に従い、商用を含む自由な二次利用が可能です。この規約はCC BY 4.0と互換です。
