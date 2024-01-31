@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js'></script>
     <link href='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css' rel='stylesheet' />
+    <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
+        type="text/css" />
     <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
     <style>
         body {
@@ -67,6 +70,24 @@
             /*overflow: scroll;*/
         }
 
+        .maplibregl-ctrl-geocoder {
+            font-size: 12px;
+            line-height: 12px;
+            font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+            position: relative;
+            background-color: #fff;
+            width: 80%;
+            min-width: 100px;
+            z-index: 1;
+            border-radius: 5px;
+            transition: width 0.25s, min-width 0.25s;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .maplibregl-ctrl-geocoder .suggestions {
+            font-size: 12px;
+        }
+
         #info {
             padding: 6px 8px;
             font: 12px/14px Arial, Helvetica, sans-serif;
@@ -76,7 +97,7 @@
             border-radius: 5px;
             width: fit-content;
             position: absolute;
-            top: 70px;
+            top: 10px;
             left: 10px;
             z-index: 1;
         }
@@ -393,9 +414,6 @@
         <div><img src="./img/location-pin.png" alt="指定緊急避難場所" style="width:20px; height:20px;" />指定緊急避難場所</div>
         <div><img src="./img/location-pin2_red.png" alt="自然災害伝承碑" style="width:20px; height:20px;" />自然災害伝承碑</div>
     </div>
-    <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
-        type="text/css" />
     <script type="module">
         // Terrain-RGB形式への変換モジュール
         maplibregl.addProtocol('numpng', makeNumPngProtocol());
@@ -456,7 +474,7 @@
                 };
             }
         };
-        map.addControl(new MaplibreGeocoder(geocoder_api, { maplibregl: maplibregl }), 'top-left');
+        map.addControl(new MaplibreGeocoder(geocoder_api, { maplibregl: maplibregl }), 'top-right');
 
         // ズーム・回転
         map.addControl(new maplibregl.NavigationControl());
