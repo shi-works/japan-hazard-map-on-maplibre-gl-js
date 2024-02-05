@@ -28,6 +28,13 @@ https://shi-works.github.io/japan-hazard-map-on-maplibre-gl-js/
       2. 本データの災害名について、同一の災害を伝承する自然災害伝承碑であっても、災害名の表記が異なる場合があることにご注意ください。
       3. 国土地理院のウェブ地図に掲載されている自然災害伝承碑の写真の一部は、第三者による二次利用に関して権利者への確認が必要な場合があります。別途、市町村別掲載情報一覧をご確認いただき、第三者に権利のあるものを利用する場合は、利用者の責任において確認してください。
 
+## 国土交通省
+- 3D都市モデル（Project PLATEAU）建物データ（LOD1、PMTiles形式）
+    - 出典：[法務省地図XMLアダプトプロジェクト amx-project/apb](https://github.com/amx-project/apb)
+        - 原初データ出典：[3D都市モデル（Project PLATEAU）ポータルサイト](https://www.geospatial.jp/ckan/dataset/plateau)
+    - 概要：航空測量等に基づき取得したデータから建物等の地物を3次元で生成した3D都市モデルです。
+    - ライセンス：CC BY 4.0等のオープンライセンス。詳細は[PLATEAU Policy](https://www.mlit.go.jp/plateau/site-policy/)を参照。商用利用も含め、無償で自由に利用可能。
+
 ## 地域・交通データ研究所
 - 令和2年簡易100mメッシュ人口データ（全国）（PMTiles形式）
     - 出典：https://github.com/shi-works/noto-hanto-earthquake-2024-100m-mesh-pop-data
