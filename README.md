@@ -32,7 +32,7 @@ https://shi-works.github.io/japan-hazard-map-on-maplibre-gl-js/#16.29/35.733868/
 - 3D都市モデル（Project PLATEAU）建物データ（LOD1、PMTiles形式）
     - 出典：[法務省地図XMLアダプトプロジェクト amx-project/apb](https://github.com/amx-project/apb)
         - 原初データ出典：[3D都市モデル（Project PLATEAU）ポータルサイト](https://www.geospatial.jp/ckan/dataset/plateau)
-    - 概要：航空測量等に基づき取得したデータから建物等の地物を3次元で生成した3D都市モデルです。
+        - 概要：航空測量等に基づき取得したデータから建物等の地物を3次元で生成した3D都市モデルです。
     - ライセンス：CC BY 4.0等のオープンライセンス。詳細は[PLATEAU Policy](https://www.mlit.go.jp/plateau/site-policy/)を参照。商用利用も含め、無償で自由に利用可能。
 
 ## 地域・交通データ研究所
