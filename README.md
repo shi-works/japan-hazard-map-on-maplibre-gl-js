@@ -1,4 +1,4 @@
-# 3Dハザードマップ on MapLibre GL JS
+# 全国ハザードマップ on MapLibre GL JS
 ## Public Website
 https://shi-works.github.io/japan-hazard-map-on-maplibre-gl-js/#16.29/35.733868/139.797143/22.4/67
 
